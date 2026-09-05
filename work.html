@@ -78,13 +78,14 @@ h1 em{display:block;margin-left:clamp(20px,15vw,250px);font:400 clamp(58px,10vw,
 </div>
 <div class="noise"></div>
 
+<div data-barba="wrapper">
 <header class="site-head">
  <a class="logo" href="index.html">N<i>/</i>J</a>
  <div class="chapter">BAKERY FILMS / WORK</div>
  <button class="menu" onclick="history.back()">BACK ↗</button>
 </header>
 
-<main>
+<main data-barba="container">
 <section class="hero">
  <div class="kicker"><span><strong>01 — Work</strong></span><span>Bakery Films / India</span><span>Film · Advertising · Culture</span></div>
  <h1>THE <em>work.</em></h1>
@@ -124,6 +125,9 @@ h1 em{display:block;margin-left:clamp(20px,15vw,250px);font:400 clamp(58px,10vw,
  <small>Bakery Films / Selected archive</small>
 </section>
 </main>
+</div>
+
+<div class="page-transition"><div class="curtain"></div></div>
 
 <footer class="footer">
  <span>© 2026 BAKERY FILMS</span>
@@ -138,7 +142,10 @@ h1 em{display:block;margin-left:clamp(20px,15vw,250px);font:400 clamp(58px,10vw,
  </div>
 </div>
 
+<link rel="stylesheet" href="transition.css">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/@barba/core"></script>
 <script>
 const works=[
  {title:"Everyday, Reframed",client:"Brand Film",year:"2026",type:"film",director:"Shekar Kambli",src:"media/My Movie 1.mp4"},
@@ -191,11 +198,10 @@ document.querySelectorAll(".filter").forEach(btn=>btn.addEventListener("click",(
 document.querySelector("#more").onclick=()=>{shown+=4;render()};
 document.querySelector("#random").onclick=()=>{works.sort(()=>Math.random()-.5);shown=8;render()};
 
-if(window.Lenis){const lenis=new Lenis({duration:1.05,smoothWheel:true});function raf(t){lenis.raf(t);requestAnimationFrame(raf)}requestAnimationFrame(raf)}
-
 let p=0;const bar=document.querySelector("#preBar"),cnt=document.querySelector("#preCount"),pre=document.querySelector("#preloader");
 const timer=setInterval(()=>{p=Math.min(100,p+Math.ceil(Math.random()*9));bar.style.width=p+"%";cnt.textContent=String(p).padStart(2,"0");if(p>=100){clearInterval(timer);setTimeout(()=>pre.classList.add("done"),250)}},55);
 render();
 </script>
+<script src="transitions.js"></script>
 </body>
 </html>

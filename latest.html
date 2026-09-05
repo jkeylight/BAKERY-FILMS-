@@ -107,7 +107,8 @@ h1 em{display:block;margin-left:clamp(20px,15vw,250px);font:400 clamp(58px,10vw,
  <button class="menu" onclick="history.back()">BACK ↗</button>
 </header>
 
-<main>
+<div data-barba="wrapper">
+<main data-barba="container">
 <section class="hero">
  <div class="kicker"><span><strong>03 — Latest</strong></span><span>Bakery Films / India</span><span>Film · News · Updates</span></div>
  <h1>THE <em>latest.</em></h1>
@@ -139,6 +140,9 @@ h1 em{display:block;margin-left:clamp(20px,15vw,250px);font:400 clamp(58px,10vw,
  <small>Bakery Films / Latest</small>
 </section>
 </main>
+</div>
+
+<div class="page-transition"><div class="curtain"></div></div>
 
 <footer class="footer">
  <span>© 2026 BAKERY FILMS</span>
@@ -153,7 +157,10 @@ h1 em{display:block;margin-left:clamp(20px,15vw,250px);font:400 clamp(58px,10vw,
  </div>
 </div>
 
+<link rel="stylesheet" href="transition.css">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/@barba/core"></script>
 <script>
 const entries=[
  {date:"Sep 2026",tag:"Commission",title:"Bakery Films x Lakme <em>Fashion Week</em>",excerpt:"New campaign for Lakme's summer collection — shot across three cities in 72 hours. Raw beauty, no retouching.",src:"media/My Movie 1.mp4",type:"video"},
@@ -208,10 +215,9 @@ document.querySelector('#close').onclick=closePlayer;
 player.addEventListener('click',e=>{if(e.target===player)closePlayer()});
 addEventListener('keydown',e=>{if(e.key==='Escape')closePlayer()});
 
-if(window.Lenis){const lenis=new Lenis({duration:1.05,smoothWheel:true});function raf(t){lenis.raf(t);requestAnimationFrame(raf)}requestAnimationFrame(raf)}
-
 let p=0;const bar=document.querySelector('#preBar'),cnt=document.querySelector('#preCount'),pre=document.querySelector('#preloader');
 const timer=setInterval(()=>{p=Math.min(100,p+Math.ceil(Math.random()*9));bar.style.width=p+'%';cnt.textContent=String(p).padStart(2,'0');if(p>=100){clearInterval(timer);setTimeout(()=>pre.classList.add('done'),250)}},55);
 </script>
+<script src="transitions.js"></script>
 </body>
 </html>

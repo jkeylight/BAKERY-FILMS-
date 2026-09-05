@@ -1,0 +1,2 @@
+.page-transition{position:fixed;inset:0;z-index:9999;pointer-events:none}
+.page-transition .curtain{position:absolute;inset:0;background:#090909;transform:scaleY(0);transform-origin:bottom}

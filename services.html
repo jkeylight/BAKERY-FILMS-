@@ -107,7 +107,8 @@ capabilities{padding:clamp(80px,10vw,160px) var(--pad);border-bottom:1px solid v
  <button class="menu" onclick="history.back()">BACK ↗</button>
 </header>
 
-<main>
+<div data-barba="wrapper">
+<main data-barba="container">
 <section class="hero">
  <div class="kicker"><span><strong>06 — Services</strong></span><span>Bakery Films / India</span><span>Film · Production · Post</span></div>
  <h1>THE <em>services.</em></h1>
@@ -217,17 +218,23 @@ capabilities{padding:clamp(80px,10vw,160px) var(--pad);border-bottom:1px solid v
  <a href="contact-10x.html">Start a commission ↗</a>
 </section>
 </main>
+</div>
+
+<div class="page-transition"><div class="curtain"></div></div>
 
 <footer class="footer">
  <span>© 2026 BAKERY FILMS</span>
  <span>MADE WITH <b class="heart">♥</b> BY NORMAN JAMES</span>
 </footer>
 
+<link rel="stylesheet" href="transition.css">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/@barba/core"></script>
 <script>
-if(window.Lenis){const lenis=new Lenis({duration:1.05,smoothWheel:true});function raf(t){lenis.raf(t);requestAnimationFrame(raf)}requestAnimationFrame(raf)}
 let p=0;const bar=document.querySelector('#preBar'),cnt=document.querySelector('#preCount'),pre=document.querySelector('#preloader');
 const timer=setInterval(()=>{p=Math.min(100,p+Math.ceil(Math.random()*9));bar.style.width=p+'%';cnt.textContent=String(p).padStart(2,'0');if(p>=100){clearInterval(timer);setTimeout(()=>pre.classList.add('done'),250)}},55);
 </script>
+<script src="transitions.js"></script>
 </body>
 </html>

@@ -27,7 +27,8 @@ main{position:relative}.hero{min-height:100svh;padding:130px var(--pad) 36px;dis
 <div class="preloader" id="preloader"><div class="pre-wrap"><div class="pre-top"><span>Bakery Films / Director</span><span>Loading filmography</span></div><div class="pre-line"><div class="pre-bar" id="preBar"></div></div><div class="pre-count" id="preCount">00</div></div></div>
 <div class="noise"></div><div class="cursor" id="cursor"></div>
 <header class="site-head"><a class="logo" href="index.html">N<i>/</i>J</a><div class="chapter" id="chapter">DIRECTOR — MUMBAI</div><button class="menu" onclick="history.back()">BACK ↗</button></header>
-<main>
+<div data-barba="wrapper">
+<main data-barba="container">
 <section class="hero">
   <div class="hero-kicker"><span id="kickerNum">Director 01</span><span>Bakery Films / Mumbai</span><span id="kickerType">Commercial + Narrative</span></div>
   <h1 id="heroName">NAME <em>Last</em></h1>
@@ -41,9 +42,15 @@ main{position:relative}.hero{min-height:100svh;padding:130px var(--pad) 36px;dis
 <section class="quote"><p id="quoteText">"The image should seduce you before the brand ever needs to explain itself."</p><small>Director's note / Bakery Films</small></section>
 <section class="next"><div class="next-top"><span>Next director</span><span id="nextCount">02 / 13</span></div><a href="#" id="nextLink"><span id="nextName">Next Director</span><small>View filmography ↗</small></a><div></div></section>
 </main>
+</div>
+
+<div class="page-transition"><div class="curtain"></div></div>
 <footer class="foot"><span>© 2026 BAKERY FILMS</span><span>MADE WITH <b class="love">♥</b> BY NORMAN JAMES</span></footer>
 <div class="player" id="player" aria-hidden="true"><div class="player-inner"><button class="player-close" id="playerClose">CLOSE [ESC]</button><video id="playerVideo" controls playsinline></video><div class="player-caption"><span id="playerTitle"></span><span>16:9 / 1920×1080</span></div></div></div>
+<link rel="stylesheet" href="transition.css">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/@barba/core"></script>
 <script>
 const directors=[
  {name:"Shekar Kambli",first:"Shekar",last:"Kambli",role:"Director",slug:"shekar-kambli",num:"01",type:"Commercial + Narrative",manifesto:"Human instinct, graphic precision and a refusal to let the product interrupt the story.",quote:"The image should seduce you before the brand ever needs to explain itself.",sectionTitle:"Stories, not <em>thumbnails.</em>",works:[{title:"Everyday, Reframed",client:"Brand Film",year:"2026",src:"media/My Movie 1.mp4"},{title:"The Long Way Home",client:"Automotive",year:"2026",src:"media/My Movie 1.mp4"},{title:"Objects in Motion",client:"Lifestyle",year:"2025",src:"media/My Movie 1.mp4"},{title:"A Small Revolution",client:"FMCG",year:"2025",src:"media/My Movie 1.mp4"}]},
@@ -85,8 +92,8 @@ d.works.forEach((w,i)=>{const el=document.createElement('article');el.className=
 
 const player=document.querySelector('#player'),pv=document.querySelector('#playerVideo'),pt=document.querySelector('#playerTitle');function openPlayer(w){pt.textContent=w.title+' / '+w.client;pv.src=w.src;player.classList.add('open');player.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';pv.play().catch(()=>{})}function closePlayer(){pv.pause();pv.removeAttribute('src');pv.load();player.classList.remove('open');player.setAttribute('aria-hidden','true');document.body.style.overflow=''}document.querySelector('#playerClose').onclick=closePlayer;player.addEventListener('click',e=>{if(e.target===player)closePlayer()});addEventListener('keydown',e=>{if(e.key==='Escape')closePlayer()});
 let p=0;const bar=document.querySelector('#preBar'),cnt=document.querySelector('#preCount'),pre=document.querySelector('#preloader');const timer=setInterval(()=>{p=Math.min(100,p+Math.ceil(Math.random()*9));bar.style.width=p+'%';cnt.textContent=String(p).padStart(2,'0');if(p>=100){clearInterval(timer);setTimeout(()=>pre.classList.add('done'),250)}},55);
-if(window.Lenis){const lenis=new Lenis({duration:1.05,smoothWheel:true});function raf(t){lenis.raf(t);requestAnimationFrame(raf)}requestAnimationFrame(raf)}
 const cur=document.querySelector('#cursor');if(matchMedia('(pointer:fine)').matches){addEventListener('pointermove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'})}
 </script>
+<script src="transitions.js"></script>
 </body>
 </html>

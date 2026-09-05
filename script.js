@@ -87,4 +87,4 @@ function closeMenu(){
 }
 document.querySelector('.menu-open').onclick=openMenu;document.querySelector('.menu-close').onclick=closeMenu;
 
-if(window.barba){barba.init({transitions:[{name:'noir',leave(){return gsap.to(this.current.container,{opacity:0,duration:.35})},enter(){return gsap.from(this.next.container,{opacity:0,duration:.5})}}]});}
+// Barba transitions handled by transitions.js

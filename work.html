@@ -1,0 +1,195 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>N/J — Work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Manrope:wght@300;400;500&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="contact.css">
+<style>
+.work-hero{padding:9vh 4vw 7vh;border-bottom:1px solid #1d1d1d}
+.work-hero h1{font-size:clamp(76px,13vw,210px);line-height:.76;font-weight:300;letter-spacing:-.08em;margin:6vh 0 5vh;text-transform:uppercase}
+.work-hero h1 em{font-family:"Playfair Display";font-weight:400}
+.work-hero .lede{max-width:460px;margin-left:43%;color:#999;font-size:14px;line-height:1.8}
+
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#1d1d1d;padding:2px}
+
+.work-item{position:relative;overflow:hidden;background:#101010;cursor:pointer}
+.work-item.tall{aspect-ratio:3/4}
+.work-item.wide{aspect-ratio:16/9}
+.work-item.square{aspect-ratio:1/1}
+
+.work-item .thumb{position:relative;width:100%;height:100%;overflow:hidden}
+.work-item .thumb img,.work-item .thumb video{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08) brightness(.92);transition:filter .8s ease,transform 1.2s ease}
+.work-item:hover .thumb img,.work-item:hover .thumb video{filter:grayscale(0) contrast(1.05) brightness(1);transform:scale(1.05)}
+
+.work-item .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border:2px solid rgba(255,255,255,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.4s;opacity:0}
+.work-item:hover .play{opacity:1;border-color:#c5a059}
+.work-item .play::after{content:"";width:0;height:0;border-style:solid;border-width:10px 0 10px 18px;border-color:transparent transparent transparent #c5a059;margin-left:4px}
+
+.work-item .info{position:absolute;left:0;right:0;bottom:0;padding:60px 22px 20px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.85));opacity:0;transform:translateY(10px);transition:.5s}
+.work-item:hover .info{opacity:1;transform:translateY(0)}
+.work-item .info .cat{font:8px "DM Mono";letter-spacing:.18em;color:#c5a059;margin-bottom:8px}
+.work-item .info h3{font-size:clamp(20px,2.4vw,34px);font-weight:300;letter-spacing:-.02em;margin:0 0 4px}
+.work-item .info span{font:9px "DM Mono";letter-spacing:.14em;color:#777}
+
+.work-item .vid-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#0c0c0c,#1a1a1a);gap:16px}
+.work-item .vid-placeholder .icon{width:70px;height:70px;border:1px solid #333;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.4s}
+.work-item:hover .vid-placeholder .icon{border-color:#c5a059}
+.work-item .vid-placeholder .icon::after{content:"";width:0;height:0;border-style:solid;border-width:12px 0 12px 20px;border-color:transparent transparent transparent #555;transition:.4s;margin-left:5px}
+.work-item:hover .vid-placeholder .icon::after{border-color:#c5a059}
+.work-item .vid-placeholder span{font:8px "DM Mono";letter-spacing:.18em;color:#555}
+
+.work-outro{padding:10vh 4vw 26vh;text-align:center}
+.work-outro p{font-family:"Playfair Display";font-style:italic;font-size:clamp(28px,4vw,54px);color:#c5a059;line-height:1.35}
+
+@media(max-width:760px){
+.work-grid{grid-template-columns:1fr}
+.work-item.tall{aspect-ratio:4/5}
+.work-item.wide{aspect-ratio:16/10}
+.work-item.square{aspect-ratio:4/5}
+.work-hero{padding:9vh 6vw 7vh}
+.work-hero .lede{margin-left:0;margin-top:6vh}
+.work-outro{padding:8vh 6vw 24vh}
+}
+</style>
+</head><body>
+<div class="noise"></div>
+<header><a class="logo" href="index.html">N<span>/</span>J</a><div class="head"><span>CREATIVE ARCHIVE / MMXXVI</span><a href="index.html">BACK TO WORK ↗</a></div></header>
+
+<main>
+<section class="work-hero">
+<div class="eyebrow">02 — SELECTED WORK / 2026</div>
+<h1>THE <em>WORK</em></h1>
+<p class="lede">Every frame is a decision. Every cut is a sentence. This is the work — campaigns, films, editorials and identities made in Mumbai for the world.</p>
+</section>
+
+<section class="work-grid">
+
+<!-- 01 — Tall image -->
+<figure class="work-item tall">
+<div class="thumb"><img src="assets/Priyanka 1 copy.avif" alt="Priyanka — Portrait"></div>
+<div class="info"><div class="cat">PORTRAIT / FASHION</div><h3>THE ICON</h3><span>2026 — BAKERY FILMS</span></div>
+</figure>
+
+<!-- 02 — Video placeholder -->
+<div class="work-item wide">
+<div class="thumb">
+<video muted playsinline loop preload="none" poster="assets/Capture.JPG">
+<source src="media/My Movie 1.mp4" type="video/mp4">
+</video>
+<div class="play"></div>
+</div>
+<div class="info"><div class="cat">FILM / MOVING IMAGE</div><h3>IN MOTION</h3><span>2026 — ORIGINAL FILM</span></div>
+</div>
+
+<!-- 03 — Tall image -->
+<figure class="work-item tall">
+<div class="thumb"><img src="assets/Image 12 copy with grain.avif" alt="Editorial — New Form"></div>
+<div class="info"><div class="cat">EDITORIAL / FW26</div><h3>NEW FORM</h3><span>2026 — THE NEW SILHOUETTE</span></div>
+</figure>
+
+<!-- 04 — Video placeholder -->
+<div class="work-item wide">
+<div class="thumb">
+<div class="vid-placeholder">
+<div class="icon"></div>
+<span>COMING SOON</span>
+</div>
+</div>
+<div class="info"><div class="cat">BRAND FILM / IDENTITY</div><h3>THE BAKE</h3><span>2026 — POST-PRODUCTION</span></div>
+</div>
+
+<!-- 05 — Square -->
+<figure class="work-item square">
+<div class="thumb"><img src="assets/c02525_23be238fec574d9597a2514795330bb1~mv2.avif" alt="Dynasty — Diptych 1"></div>
+<div class="info"><div class="cat">DIPTYCH / NARRATIVE</div><h3>THE DYNASTY</h3><span>2026 — TWO FRAMES</span></div>
+</figure>
+
+<!-- 06 — Square -->
+<figure class="work-item square">
+<div class="thumb"><img src="assets/c02525_41b1b218814b4c648131f30cd5fe3a53~mv2.avif" alt="Dynasty — Diptych 2"></div>
+<div class="info"><div class="cat">DIPTYCH / NARRATIVE</div><h3>THE DYNASTY</h3><span>2026 — ONE STORY</span></div>
+</figure>
+
+<!-- 07 — Video placeholder -->
+<div class="work-item wide">
+<div class="thumb">
+<div class="vid-placeholder">
+<div class="icon"></div>
+<span>COMING SOON</span>
+</div>
+</div>
+<div class="info"><div class="cat">EDITORIAL / DIGITAL</div><h3>GHOST FRAME</h3><span>2026 — IN DEVELOPMENT</span></div>
+</div>
+
+<!-- 08 — Tall image -->
+<figure class="work-item tall">
+<div class="thumb"><img src="assets/c02525_9edc34de01d44e91bc11a909dff8144b~mv2.avif" alt="Mono — Ghost"></div>
+<div class="info"><div class="cat">MONO / ART DIRECTION</div><h3>GHOST</h3><span>2026 — NOTHING AS IT SEEMS</span></div>
+</figure>
+
+<!-- 09 — Tall image -->
+<figure class="work-item tall">
+<div class="thumb"><img src="assets/virat 2.jpg" alt="King — The Player"></div>
+<div class="info"><div class="cat">SINGLE FRAME / SPORT</div><h3>THE KING</h3><span>2026 — MAXIMUM PRESENCE</span></div>
+</figure>
+
+<!-- 10 — Video placeholder -->
+<div class="work-item wide">
+<div class="thumb">
+<div class="vid-placeholder">
+<div class="icon"></div>
+<span>COMING SOON</span>
+</div>
+</div>
+<div class="info"><div class="cat">FASHION FILM / CAMPAIGN</div><h3>THE SILHOUETTE</h3><span>2026 — PRE-PRODUCTION</span></div>
+</figure>
+
+<!-- 11 — Tall image -->
+<figure class="work-item tall">
+<div class="thumb"><img src="assets/srk.jpg" alt="End — Begin Again"></div>
+<div class="info"><div class="cat">PORTRAIT / ICON</div><h3>BEGIN AGAIN</h3><span>2026 — THE FINAL FRAME</span></div>
+</figure>
+
+<!-- 12 — Video placeholder -->
+<div class="work-item wide">
+<div class="thumb">
+<div class="vid-placeholder">
+<div class="icon"></div>
+<span>COMING SOON</span>
+</div>
+</div>
+<div class="info"><div class="cat">CORPORATE / BRAND STORY</div><h3>THE ARCHIVE</h3><span>2026 — IN POST</span></div>
+</div>
+
+</section>
+
+<section class="work-outro"><p>Every project is a new batch.<br>The oven is always on.</p></section>
+</main>
+
+<footer class="foot"><span>© 2026 BAKERY FILMS</span><span>MADE WITH <b class="love">♥</b> BY NORMAN JAMES</span></footer>
+
+<script>
+document.querySelectorAll('.work-item').forEach(function(item){
+  var video=item.querySelector('video');
+  if(!video)return;
+  item.addEventListener('mouseenter',function(){video.play().catch(function(){})});
+  item.addEventListener('mouseleave',function(){video.pause();video.currentTime=0});
+});
+
+var items=document.querySelectorAll('.work-item'),tick=false;
+function raf(){
+  tick=false;
+  var v=innerHeight,mid=v/2;
+  items.forEach(function(item){
+    var r=item.getBoundingClientRect();
+    var p=Math.max(-1,Math.min(1,(mid-(r.top+r.height/2))/(v/2+r.height/2)));
+    var img=item.querySelector('img');
+    if(img)img.style.setProperty('--py',(p*6)+'%');
+  });
+}
+function onscroll(){if(tick)return;tick=true;requestAnimationFrame(raf)}
+addEventListener('scroll',onscroll,{passive:true});
+addEventListener('resize',onscroll);
+raf();
+</script>
+</body></html>

@@ -30,9 +30,22 @@ function enter(scene){
  setUI();
 }
 const intro=gsap.timeline();
-intro.to('.preloader-bar i',{width:'100%',duration:1.25,ease:'power2.inOut'})
- .to('.preloader',{yPercent:-100,duration:1,ease:'power4.inOut'})
- .add(()=>{prep(scenes[0],1);enter(scenes[0])},'-=.45');
+if(window.SplitType){
+ const split=new SplitType('#preloader-title',{types:'chars'});
+ gsap.set(split.chars,{y:'100%',opacity:0});
+ intro.to('.preloader-bar i',{width:'100%',duration:1.25,ease:'power2.inOut'})
+  .to(split.chars,{y:'0%',opacity:1,duration:.6,stagger:.03,ease:'power3.out'},0)
+  .to('#preloader-title',{letterSpacing:'.2em',duration:1.5,ease:'power3.out'},0)
+  .to('.preloader-mark',{opacity:0,duration:.3},1.5)
+  .to('.preloader span',{opacity:0,duration:.3},1.5)
+  .to('.preloader-bar',{opacity:0,duration:.3},1.5)
+  .to('.preloader',{yPercent:-100,duration:1,ease:'power4.inOut'})
+  .add(()=>{prep(scenes[0],1);enter(scenes[0])},'-=.45');
+}else{
+ intro.to('.preloader-bar i',{width:'100%',duration:1.25,ease:'power2.inOut'})
+  .to('.preloader',{yPercent:-100,duration:1,ease:'power4.inOut'})
+  .add(()=>{prep(scenes[0],1);enter(scenes[0])},'-=.45');
+}
 
 function go(dir){
  if(busy||open)return;

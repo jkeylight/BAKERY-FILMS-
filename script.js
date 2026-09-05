@@ -30,22 +30,29 @@ function enter(scene){
  setUI();
 }
 const intro=gsap.timeline();
-if(window.SplitType){
- const split=new SplitType('#preloader-title',{types:'chars'});
- gsap.set(split.chars,{y:'100%',opacity:0});
- intro.to('.preloader-bar i',{width:'100%',duration:1.25,ease:'power2.inOut'})
-  .to(split.chars,{y:'0%',opacity:1,duration:.6,stagger:.03,ease:'power3.out'},0)
-  .to('#preloader-title',{letterSpacing:'.2em',duration:1.5,ease:'power3.out'},0)
-  .to('.preloader-mark',{opacity:0,duration:.3},1.5)
-  .to('.preloader span',{opacity:0,duration:.3},1.5)
-  .to('.preloader-bar',{opacity:0,duration:.3},1.5)
-  .to('.preloader',{yPercent:-100,duration:1,ease:'power4.inOut'})
-  .add(()=>{prep(scenes[0],1);enter(scenes[0])},'-=.45');
-}else{
- intro.to('.preloader-bar i',{width:'100%',duration:1.25,ease:'power2.inOut'})
-  .to('.preloader',{yPercent:-100,duration:1,ease:'power4.inOut'})
-  .add(()=>{prep(scenes[0],1);enter(scenes[0])},'-=.45');
+const titleEl=document.getElementById('preloader-title');
+const originalText=titleEl.textContent;
+const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!';
+let glitchInterval;
+function startGlitch(){
+ let iteration=0;
+ glitchInterval=setInterval(()=>{
+  titleEl.textContent=originalText.split('').map((ch,i)=>{
+   if(ch===' ')return ' ';
+   if(i<iteration)return originalText[i];
+   return chars[Math.floor(Math.random()*chars.length)];
+  }).join('');
+  iteration+=1/2;
+  if(iteration>originalText.length){clearInterval(glitchInterval);titleEl.textContent=originalText;}
+ },40);
 }
+intro.to('.preloader-bar i',{width:'100%',duration:1.25,ease:'power2.inOut'})
+ .call(startGlitch,null,0)
+ .to('.preloader-bar i',{opacity:0,duration:.3},1.25)
+ .to('.preloader span',{opacity:0,duration:.3},1.25)
+ .to('.preloader-mark',{opacity:0,scale:1.05,duration:.3,ease:'power2.in'},1.55)
+ .to('.preloader',{yPercent:-100,duration:1,ease:'power4.inOut'})
+ .add(()=>{prep(scenes[0],1);enter(scenes[0])},'-=.45');
 
 function go(dir){
  if(busy||open)return;

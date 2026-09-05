@@ -1,0 +1,39 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>N/J — Photographers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Manrope:wght@300;400;500&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="contact.css"></head><body>
+<div class="noise"></div><header><a class="logo" href="index.html">N<span>/</span>J</a><div class="head"><span>CREATIVE ARCHIVE / MMXXVI</span><a href="index.html">BACK TO WORK ↗</a></div></header>
+<main><section class="team-hero">
+<div class="eyebrow">08 — THE LENSES / MUMBAI</div>
+<h1>THE <em>EYES</em></h1>
+<p class="lede">Four pairs of eyes, one way of seeing — light first, everything else after. The frame is only ever as good as the one behind it.</p>
+</section>
+<section class="ph-grid">
+<figure class="ph"><img src="assets/PHOTOGRAPHER/MUKUL RAWAT.avif" alt="Mukul Raut"><figcaption><span class="idx">01</span><span class="name">MUKUL RAUT</span></figcaption></figure>
+<figure class="ph"><img src="assets/PHOTOGRAPHER/NORMAN JAMES.avif" alt="Norman James"><figcaption><span class="idx">02</span><span class="name">NORMAN JAMES</span></figcaption></figure>
+<figure class="ph"><img src="assets/PHOTOGRAPHER/KUNAL KAMPANI.avif" alt="Kunal Kampani"><figcaption><span class="idx">03</span><span class="name">KUNAL KAMPANI</span></figcaption></figure>
+<figure class="ph"><img src="assets/PHOTOGRAPHER/RUDRA SEN.avif" alt="Rudra Sen"><figcaption><span class="idx">04</span><span class="name">RUDRA SEN</span></figcaption></figure>
+</section>
+<section class="team-outro"><p>Every still is a first draft of a film.</p></section></main>
+<footer class="foot"><span>© 2026 BAKERY FILMS</span><span>MADE WITH <b class="love">♥</b> BY NORMAN JAMES</span></footer>
+<script>
+(function(){
+  var phImgs=document.querySelectorAll('.ph img'),tick=false;
+  function raf(){
+    tick=false;
+    var v=innerHeight,mid=v/2;
+    phImgs.forEach(function(img){
+      var r=img.parentElement.getBoundingClientRect();
+      var p=Math.max(-1,Math.min(1,(mid-(r.top+r.height/2))/(v/2+r.height/2)));
+      img.style.setProperty('--py',(p*10)+'%');
+    });
+  }
+  function onscroll(){if(tick)return;tick=true;requestAnimationFrame(raf)}
+  addEventListener('scroll',onscroll,{passive:true});
+  addEventListener('resize',onscroll);
+  raf();
+})();
+</script>
+</body></html>

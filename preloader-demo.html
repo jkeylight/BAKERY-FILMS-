@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BAKERY FILMS — Cinematic Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/split-type"></script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{width:100%;height:100%;overflow:hidden;font-family:'JetBrains Mono',monospace;background:#0d0d0d;color:#e5e5e5}
+    ::selection{background:#fff;color:#000}
+
+    .film-grain{position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E")}
+
+    @keyframes subtleFlicker{0%,100%{opacity:.98}50%{opacity:.92}70%{opacity:.96}}
+    .film-flicker{animation:subtleFlicker .15s infinite}
+
+    #preloader{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:32px;background:#0d0d0d;pointer-events:auto}
+    .pre-row{position:relative;z-index:10;display:flex;width:100%;justify-content:space-between;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#737373}
+    .pre-center{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center}
+    .pre-label{margin-bottom:8px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#a3a3a3}
+    #counter{font-size:clamp(56px,12vw,96px);font-weight:300;letter-spacing:-.04em;color:#fff;line-height:1}
+    .pre-bar-wrap{margin-top:24px;width:192px;height:2px;overflow:hidden;background:#262626}
+    @media(min-width:640px){.pre-bar-wrap{width:256px}}
+    #progress-bar{height:100%;width:0;background:#fff}
+
+    #main{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(32px,5vw,48px);opacity:0}
+    #header{display:flex;width:100%;justify-content:space-between;opacity:0;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#a3a3a3}
+    #header nav{display:flex;gap:24px}
+    #header nav a{color:#d4d4d4;text-decoration:none;transition:color .2s}
+    #header nav a:hover{color:#fff}
+    #hero{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+    .hero-overflow{overflow:hidden;padding:16px 0}
+    #hero-title{font-family:'Syne',sans-serif;font-size:clamp(48px,10vw,96px);font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#fff;line-height:1}
+    #hero-sub{margin-top:16px;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:#a3a3a3}
+    #footer{display:flex;width:100%;justify-content:space-between;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#737373;opacity:0}
+
+    .char{display:inline-block;will-change:transform,opacity}
+  </style>
+</head>
+<body>
+
+  <div id="preloader" class="film-flicker">
+    <div class="film-grain"></div>
+    <div class="pre-row">
+      <span>REF // 35MM-8541</span>
+      <span>BAKERY STUDIOS</span>
+      <span>SCENE 01 / TAKE 01</span>
+    </div>
+    <div class="pre-center">
+      <div class="pre-label">INITIALIZING REEL</div>
+      <div id="counter">00%</div>
+      <div class="pre-bar-wrap"><div id="progress-bar"></div></div>
+    </div>
+    <div class="pre-row">
+      <span>FPS 24.00</span>
+      <span>[ LOADING REEL ]</span>
+      <span>SOUND // STEREO</span>
+    </div>
+  </div>
+
+  <div id="main">
+    <div id="header">
+      <span>EST. 2026</span>
+      <nav>
+        <a href="#">Works</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+    <div id="hero">
+      <div class="hero-overflow">
+        <h1 id="hero-title">BAKERY FILMS</h1>
+      </div>
+      <p id="hero-sub">Film · Advertising · Culture</p>
+    </div>
+    <div id="footer">
+      <span>LOC // MUMBAI / INDIA</span>
+      <span>SCROLL TO EXPLORE</span>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const splitTitle = new SplitType("#hero-title", { types: "chars" });
+      const tl = gsap.timeline({ defaults: { ease: "power4.inOut" } });
+
+      const counterEl = document.getElementById("counter");
+      const progressBar = document.getElementById("progress-bar");
+      const preloader = document.getElementById("preloader");
+      const heroSub = document.getElementById("hero-sub");
+      const header = document.getElementById("header");
+      const footer = document.getElementById("footer");
+
+      const loaderProgress = { value: 0 };
+
+      tl.to(loaderProgress, {
+        value: 100,
+        duration: 2.2,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          const v = String(Math.floor(loaderProgress.value)).padStart(2, "0");
+          counterEl.textContent = v + "%";
+          progressBar.style.width = loaderProgress.value + "%";
+        }
+      });
+
+      tl.to(counterEl, {
+        scale: 1.1,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.in"
+      }, "+=0.1");
+
+      tl.to(preloader, {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+        duration: 1.2,
+        ease: "expo.inOut"
+      }, "-=0.1");
+
+      tl.set(splitTitle.chars, {
+        y: "120%",
+        opacity: 0,
+        letterSpacing: "-0.05em"
+      }, "-=1.0");
+
+      tl.set(heroSub, { opacity: 0, y: 20 }, "-=1.0");
+
+      tl.to(splitTitle.chars, {
+        y: "0%",
+        opacity: 1,
+        duration: 1.4,
+        stagger: 0.035,
+        ease: "power4.out"
+      }, "-=0.6");
+
+      tl.to("#hero-title", {
+        letterSpacing: "0.25em",
+        duration: 2.0,
+        ease: "power3.out"
+      }, "-=1.4");
+
+      tl.to(heroSub, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.out"
+      }, "-=1.2");
+
+      tl.to([header, footer], {
+        opacity: 1,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power2.out"
+      }, "-=0.8");
+    });
+  </script>
+</body>
+</html>

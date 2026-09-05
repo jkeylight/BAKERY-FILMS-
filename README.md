@@ -36,8 +36,29 @@ All stills are served locally from `assets/`. Swap any file with your own optimi
 | `Capture.JPG` | 03 — Moving Image (video poster) |
 | `c02525_23…~mv2.avif` / `c02525_41…~mv2.avif` | 04 — Diptych / Dynasty (left / right) |
 | `c02525_9e…~mv2.avif` | 05 — Mono / Ghost |
-| `srk.jpg` | 06 — End / Begin Again |
-| (`virat 2.jpg` spare) | — |
+| `virat 2.jpg` | 06 — King / The Player |
+| `srk.jpg` | 07 — End / Begin Again |
 
 ## Production
 For deployment, serve `assets/` and `media/` from your CDN or keep them local. A reduced-motion mode is still recommended.
+
+## Rollback (bad build insurance)
+The project is a local Git repo. Each build you approve is saved as a commit tagged **`build-lock-YYYYMMDD`** — the newest tag is the "last known good" state.
+
+To restore it after a bad edit, from this folder run:
+
+```bash
+git reset --hard $(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags | head -1)
+```
+
+Or use the one-click helpers in this folder (they auto-target the newest lock):
+- Windows: double-click **`rollback.bat`**
+- Git Bash / macOS / Linux: run **`./rollback.sh`**
+
+Both restore the locked build and **discard all uncommitted changes** — they ask for confirmation first. To save a *new* locked point after a build you love:
+
+```bash
+git add -A && git commit -m "Lock build vN" && git tag build-lock-YYYYMMDD
+```
+
+To see what changed since a lock: `git diff build-lock-YYYYMMDD`

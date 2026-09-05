@@ -6,7 +6,7 @@ const cardW=()=>Math.min(innerWidth*.68,960),cardH=()=>cardW()*9/16;
 const lenis=new Lenis({duration:1.2,lerp:.075,smoothWheel:true,smoothTouch:true});
 function raf(t){lenis.raf(t);requestAnimationFrame(raf)} requestAnimationFrame(raf);
 
-function setUI(){num.textContent=String(index+1).padStart(2,'0');gsap.to(bar,{scaleX:(index+1)/6,duration:.7,ease:'power3.out'});}
+function setUI(){num.textContent=String(index+1).padStart(2,'0');gsap.to(bar,{scaleX:(index+1)/7,duration:.7,ease:'power3.out'});}
 function prep(scene,dir){
  const media=scene.querySelector('.image-frame,.video-wrap,.split');
  const text=scene.querySelectorAll('.headline,.eyebrow,.side-note,.video-caption,.cta,.video-play-state');

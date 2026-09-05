@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090909">
+<title>Bakery Films — Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#090909;--fg:#f3f0ea;--muted:#89857e;--line:rgba(243,240,234,.16);--pad:clamp(18px,2.4vw,38px);--accent:#ff4d24}
+*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:auto}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Manrope,Arial,sans-serif;overflow-x:hidden}
+a{color:inherit}.noise{position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}
+.preloader{position:fixed;inset:0;z-index:999;background:#090909;display:grid;place-items:center;transition:opacity .7s cubic-bezier(.76,0,.24,1),visibility .7s}
+.preloader.done{opacity:0;visibility:hidden}.pre-wrap{width:min(560px,calc(100vw - 48px));display:grid;gap:15px}
+.pre-top{display:flex;justify-content:space-between;font:400 10px/1 DM Mono,monospace;letter-spacing:.16em;text-transform:uppercase}
+.pre-line{height:1px;background:#252525;overflow:hidden}.pre-bar{height:100%;width:0;background:var(--fg)}
+.pre-count{font:300 clamp(46px,8vw,104px)/.8 Manrope,sans-serif;letter-spacing:-.07em;text-align:right}
+
+.site-head{position:fixed;z-index:60;top:0;left:0;right:0;height:78px;padding:0 var(--pad);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;mix-blend-mode:difference;color:#fff;pointer-events:none}
+.site-head a,.site-head button{pointer-events:auto}.logo{font:500 21px/1 Manrope,sans-serif;letter-spacing:-.06em;text-decoration:none}.logo i{font-family:Playfair Display,serif;font-weight:400}
+.chapter,.menu{font:400 9px/1 DM Mono,monospace;letter-spacing:.18em;text-transform:uppercase}.menu{justify-self:end;border:0;background:none;color:inherit;padding:10px 0;cursor:pointer}
+
+.hero{min-height:100svh;padding:130px var(--pad) 38px;display:flex;flex-direction:column;justify-content:flex-end;border-bottom:1px solid var(--line)}
+.kicker{display:flex;justify-content:space-between;gap:20px;margin-bottom:28px;color:var(--muted);font:400 10px/1 DM Mono,monospace;letter-spacing:.16em;text-transform:uppercase}.kicker strong{color:var(--fg);font-weight:400}
+h1{margin:0;font:300 clamp(82px,17vw,270px)/.68 Manrope,sans-serif;letter-spacing:-.095em;text-transform:uppercase}
+h1 em{display:block;margin-left:clamp(20px,15vw,250px);font:400 clamp(58px,10vw,160px)/.8 Playfair Display,serif;text-transform:none;letter-spacing:-.055em}
+.hero-bottom{margin-top:clamp(50px,7vw,105px);display:grid;grid-template-columns:1.25fr 1fr auto;gap:35px;align-items:end}
+.intro{max-width:760px;font-size:clamp(18px,2vw,29px);line-height:1.12;letter-spacing:-.035em}
+.meta{font:400 9px/1.7 DM Mono,monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.scroll{writing-mode:vertical-rl;transform:rotate(180deg);font:400 9px/1 DM Mono,monospace;letter-spacing:.15em;color:var(--muted)}
+
+.bar{border-bottom:1px solid var(--line);padding:14px 0;overflow:hidden}.track{display:flex;width:max-content;gap:36px;animation:marquee 26s linear infinite;font:400 9px/1 DM Mono,monospace;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}.track b{font-weight:400;color:var(--fg)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+.services{padding:clamp(80px,10vw,160px) var(--pad);border-bottom:1px solid var(--line)}
+.services-head{display:grid;grid-template-columns:1fr 2fr;gap:30px;margin-bottom:clamp(50px,7vw,100px);align-items:end}
+.services-label{font:400 10px/1 DM Mono,monospace;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.services-head h2{margin:0;font:300 clamp(48px,7vw,112px)/.83 Manrope,sans-serif;letter-spacing:-.065em;text-transform:uppercase}
+.services-head h2 em{font-family:Playfair Display,serif;font-weight:400;text-transform:none}
+.services-list{display:grid;gap:1px;background:var(--line)}
+.service{display:grid;grid-template-columns:80px 1fr 1fr;gap:clamp(20px,3vw,50px);padding:clamp(32px,4vw,60px) 0;background:var(--bg);align-items:start;cursor:default}
+.service-num{font:400 10px/1 DM Mono,monospace;color:var(--muted);letter-spacing:.1em;padding-top:12px}
+.service h3{margin:0;font:300 clamp(28px,3.8vw,56px)/.88 Manrope,sans-serif;letter-spacing:-.045em;text-transform:uppercase}
+.service h3 em{font-family:Playfair Display,serif;font-weight:400;text-transform:none}
+.service p{margin:0;font-size:clamp(14px,1.3vw,18px);line-height:1.6;color:var(--muted);max-width:500px}
+.service-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.service-tag{border:1px solid var(--line);padding:6px 10px;font:400 8px/1 DM Mono,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:color .3s,border-color .3s}
+.service:hover .service-tag{color:var(--fg);border-color:var(--fg)}
+
+.process{padding:clamp(80px,10vw,160px) var(--pad);border-bottom:1px solid var(--line)}
+.process-head{display:grid;grid-template-columns:1fr 2fr;gap:30px;margin-bottom:clamp(50px,7vw,100px);align-items:end}
+.process-head h2{margin:0;font:300 clamp(48px,7vw,112px)/.83 Manrope,sans-serif;letter-spacing:-.065em;text-transform:uppercase}
+.process-head h2 em{font-family:Playfair Display,serif;font-weight:400;text-transform:none}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,40px)}
+.process-step{text-align:center;padding:clamp(30px,4vw,60px) clamp(16px,2vw,30px);border:1px solid var(--line);transition:border-color .4s,transform .4s}
+.process-step:hover{border-color:var(--fg);transform:translateY(-8px)}
+.process-step .num{font:300 clamp(48px,6vw,80px)/.85 Manrope,sans-serif;letter-spacing:-.06em;color:var(--accent);margin-bottom:clamp(16px,2vw,28px)}
+.process-step h3{margin:0 0 12px;font:400 clamp(16px,1.6vw,22px)/1.1 Manrope,sans-serif;letter-spacing:-.02em;text-transform:uppercase}
+.process-step p{margin:0;font-size:clamp(12px,1.1vw,14px);line-height:1.5;color:var(--muted)}
+
+capabilities{padding:clamp(80px,10vw,160px) var(--pad);border-bottom:1px solid var(--line)}
+.capabilities-head{display:grid;grid-template-columns:1fr 2fr;gap:30px;margin-bottom:clamp(50px,7vw,100px);align-items:end}
+.capabilities-head h2{margin:0;font:300 clamp(48px,7vw,112px)/.83 Manrope,sans-serif;letter-spacing:-.065em;text-transform:uppercase}
+.capabilities-head h2 em{font-family:Playfair Display,serif;font-weight:400;text-transform:none}
+.capabilities-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+.capability{padding:clamp(28px,3.5vw,55px);background:var(--bg);transition:background .4s}
+.capability:hover{background:rgba(255,255,255,.03)}
+.capability h4{margin:0 0 12px;font:400 clamp(16px,1.6vw,22px)/1.1 Manrope,sans-serif;letter-spacing:-.02em;text-transform:uppercase}
+.capability p{margin:0;font-size:clamp(13px,1.2vw,15px);line-height:1.5;color:var(--muted)}
+
+.cta{padding:clamp(100px,14vw,220px) var(--pad);text-align:center;border-bottom:1px solid var(--line)}
+.cta p{margin:0 0 clamp(30px,4vw,60px);font:400 clamp(40px,6.5vw,100px)/.88 Playfair Display,serif;letter-spacing:-.05em}
+.cta a{display:inline-block;border:1px solid var(--fg);padding:clamp(16px,2vw,24px) clamp(32px,4vw,56px);font:400 9px/1 DM Mono,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--fg);text-decoration:none;transition:background .4s,color .4s}
+.cta a:hover{background:var(--fg);color:#090909}
+
+.footer{min-height:88px;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between;gap:25px;font:400 9px/1.5 DM Mono,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.heart{color:var(--accent)}
+
+@media(max-width:800px){
+ .site-head{height:64px;grid-template-columns:1fr auto}.chapter{display:none}.hero{padding-top:105px}
+ .kicker span:nth-child(2){display:none}h1{font-size:clamp(70px,22vw,112px)}h1 em{margin-left:9vw;font-size:clamp(47px,16vw,82px)}
+ .hero-bottom{grid-template-columns:1fr;gap:24px}.scroll{display:none}
+ .service{grid-template-columns:1fr;gap:12px}
+ .process-grid{grid-template-columns:1fr 1fr}
+ .capabilities-grid{grid-template-columns:1fr}
+ .footer{align-items:flex-start;flex-direction:column;justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.track{animation:none}.process-step{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+ <div class="pre-wrap">
+  <div class="pre-top"><span>Bakery Films / Services</span><span>Loading capabilities</span></div>
+  <div class="pre-line"><div class="pre-bar" id="preBar"></div></div>
+  <div class="pre-count" id="preCount">00</div>
+ </div>
+</div>
+<div class="noise"></div>
+
+<header class="site-head">
+ <a class="logo" href="index.html">N<i>/</i>J</a>
+ <div class="chapter">BAKERY FILMS / SERVICES</div>
+ <button class="menu" onclick="history.back()">BACK ↗</button>
+</header>
+
+<main>
+<section class="hero">
+ <div class="kicker"><span><strong>06 — Services</strong></span><span>Bakery Films / India</span><span>Film · Production · Post</span></div>
+ <h1>THE <em>services.</em></h1>
+ <div class="hero-bottom">
+  <div class="intro">TVCs, Digital Films, Service Production, Photography, Post Production, Animation & VFX. One kitchen, every dish.</div>
+  <div class="meta">FULL-SERVICE PRODUCTION<br>MUMBAI / WORLDWIDE<br><br>EST. 2018</div>
+  <div class="scroll">SCROLL TO EXPLORE ↓</div>
+ </div>
+</section>
+
+<div class="bar"><div class="track">
+ <span><b>SERVICES</b> — TVC / DIGITAL / PHOTOGRAPHY / POST / ANIMATION / VFX — </span>
+ <span><b>SERVICES</b> — TVC / DIGITAL / PHOTOGRAPHY / POST / ANIMATION / VFX — </span>
+ <span><b>SERVICES</b> — TVC / DIGITAL / PHOTOGRAPHY / POST / ANIMATION / VFX — </span>
+</div></div>
+
+<section class="services">
+ <div class="services-head">
+  <div class="services-label">02 — What we do</div>
+  <h2>The <em>menu.</em></h2>
+ </div>
+ <div class="services-list">
+  <div class="service">
+   <span class="service-num">01</span>
+   <h3>TVC <em>& Commercials</em></h3>
+   <div>
+    <p>Television commercials and brand films crafted with cinematic precision. From concept to final delivery, every frame earns its place.</p>
+    <div class="service-tags"><span class="service-tag">TV Spot</span><span class="service-tag">Brand Film</span><span class="service-tag">Product</span><span class="service-tag">Lifestyle</span></div>
+   </div>
+  </div>
+  <div class="service">
+   <span class="service-num">02</span>
+   <h3>Digital <em>Films</em></h3>
+   <div>
+    <p>Short-form and long-form content designed for digital platforms. Social-first, mobile-optimized, story-driven.</p>
+    <div class="service-tags"><span class="service-tag">Social</span><span class="service-tag">YouTube</span><span class="service-tag">OTT</span><span class="service-tag">Web Series</span></div>
+   </div>
+  </div>
+  <div class="service">
+   <span class="service-num">03</span>
+   <h3>Service <em>Production</em></h3>
+   <div>
+    <p>End-to-end production services for international and domestic crews. Location scouting, crew hiring, logistics, permits.</p>
+    <div class="service-tags"><span class="service-tag">Line Production</span><span class="service-tag">Location Scout</span><span class="service-tag">Crew</span><span class="service-tag">Logistics</span></div>
+   </div>
+  </div>
+  <div class="service">
+   <span class="service-num">04</span>
+   <h3>Photography</h3>
+   <div>
+    <p>Campaign shoots, lookbooks, editorial spreads and e-commerce. Still images that move people.</p>
+    <div class="service-tags"><span class="service-tag">Campaign</span><span class="service-tag">Editorial</span><span class="service-tag">Lookbook</span><span class="service-tag">E-commerce</span></div>
+   </div>
+  </div>
+  <div class="service">
+   <span class="service-num">05</span>
+   <h3>Post <em>Production</em></h3>
+   <div>
+    <p>Offline and online editing, color grading, sound design, mixing and mastering. The final polish that makes the difference.</p>
+    <div class="service-tags"><span class="service-tag">Edit</span><span class="service-tag">Color</span><span class="service-tag">Sound</span><span class="service-tag">Mix</span></div>
+   </div>
+  </div>
+  <div class="service">
+   <span class="service-num">06</span>
+   <h3>Animation <em>& VFX</em></h3>
+   <div>
+    <p>Motion graphics, 2D/3D animation, visual effects and compositing. When reality needs a little help.</p>
+    <div class="service-tags"><span class="service-tag">2D Animation</span><span class="service-tag">3D</span><span class="service-tag">VFX</span><span class="service-tag">Motion</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="process">
+ <div class="process-head">
+  <div class="process-label">03 — How we work</div>
+  <h2>The <em>process.</em></h2>
+ </div>
+ <div class="process-grid">
+  <div class="process-step"><div class="num">01</div><h3>Brief</h3><p>We listen. Understand the brand, the audience, the ambition. Then we ask the right questions.</p></div>
+  <div class="process-step"><div class="num">02</div><h3>Concept</h3><p>Scripts, storyboards, references. We build the world before we shoot a single frame.</p></div>
+  <div class="process-step"><div class="num">03</div><h3>Produce</h3><p>Shoot day. The kitchen fires up. Every dish prepared to order, every frame earned.</p></div>
+  <div class="process-step"><div class="num">04</div><h3>Deliver</h3><p>Edit, grade, mix, master. The final product — ready for the world to taste.</p></div>
+ </div>
+</section>
+
+<section class="capabilities">
+ <div class="capabilities-head">
+  <div class="capabilities-label">04 — Capabilities</div>
+  <h2>The <em>tools.</em></h2>
+ </div>
+ <div class="capabilities-grid">
+  <div class="capability"><h4>RED & ARRI</h4><p>Cinema cameras for every scale. From RED Komodo to ARRI Alexa Mini LF.</p></div>
+  <div class="capability"><h4>Drone & Gimbal</h4><p>Aerial cinematography and stabilized motion. The sky is not the limit.</p></div>
+  <div class="capability"><h4>Studio</h4><p>Full-service studio space in Mumbai. Cyc wall, lighting grid, production office.</p></div>
+  <div class="capability"><h4>DaVinci Resolve</h4><p>Professional color grading suite. HDR-ready, cinema-grade output.</p></div>
+  <div class="capability"><h4>Pro Tools</h4><p>Sound design, Foley, mixing and mastering in surround and Atmos.</p></div>
+  <div class="capability"><h4>After Effects</h4><p>Motion graphics, compositing and visual effects for every platform.</p></div>
+  <div class="capability"><h4>Cinema 4D</h4><p>3D modeling, animation and rendering for product and brand work.</p></div>
+  <div class="capability"><h4>Capture One</h4><p>Professional tethered shooting and photo retouching workflow.</p></div>
+  <div class="capability"><h4>Figma</h4><p>Pre-production design, moodboards and visual development.</p></div>
+ </div>
+</section>
+
+<section class="cta">
+ <p>"Let's make something<br>worth seeing."</p>
+ <a href="contact-10x.html">Start a commission ↗</a>
+</section>
+</main>
+
+<footer class="footer">
+ <span>© 2026 BAKERY FILMS</span>
+ <span>MADE WITH <b class="heart">♥</b> BY NORMAN JAMES</span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script>
+if(window.Lenis){const lenis=new Lenis({duration:1.05,smoothWheel:true});function raf(t){lenis.raf(t);requestAnimationFrame(raf)}requestAnimationFrame(raf)}
+let p=0;const bar=document.querySelector('#preBar'),cnt=document.querySelector('#preCount'),pre=document.querySelector('#preloader');
+const timer=setInterval(()=>{p=Math.min(100,p+Math.ceil(Math.random()*9));bar.style.width=p+'%';cnt.textContent=String(p).padStart(2,'0');if(p>=100){clearInterval(timer);setTimeout(()=>pre.classList.add('done'),250)}},55);
+</script>
+</body>
+</html>

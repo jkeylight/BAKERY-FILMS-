@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#0a0a0a" />
-<title>Bakery Films — Director / Shekar Kambli</title>
+<title>Bakery Films — Director</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -26,36 +26,63 @@ main{position:relative}.hero{min-height:100svh;padding:130px var(--pad) 36px;dis
 <body>
 <div class="preloader" id="preloader"><div class="pre-wrap"><div class="pre-top"><span>Bakery Films / Director</span><span>Loading filmography</span></div><div class="pre-line"><div class="pre-bar" id="preBar"></div></div><div class="pre-count" id="preCount">00</div></div></div>
 <div class="noise"></div><div class="cursor" id="cursor"></div>
-<header class="site-head"><a class="logo" href="index.html">N<i>/</i>J</a><div class="chapter">DIRECTOR / 01 — MUMBAI</div><button class="menu" onclick="history.back()">BACK ↗</button></header>
+<header class="site-head"><a class="logo" href="index.html">N<i>/</i>J</a><div class="chapter" id="chapter">DIRECTOR — MUMBAI</div><button class="menu" onclick="history.back()">BACK ↗</button></header>
 <main>
 <section class="hero">
-  <div class="hero-kicker"><span>Director 01</span><span>Bakery Films / Mumbai</span><span>Commercial + Narrative</span></div>
-  <h1>SHEKAR <em>Kambli</em></h1>
-  <div class="hero-bottom"><div class="manifesto">Human instinct, graphic precision and a refusal to let the product interrupt the story.</div><div class="hero-meta">Selected representation<br>India / Worldwide<br><br>Scroll to selected work ↓</div><div class="scroll-mark">FILMOGRAPHY / 2026</div></div>
+  <div class="hero-kicker"><span id="kickerNum">Director 01</span><span>Bakery Films / Mumbai</span><span id="kickerType">Commercial + Narrative</span></div>
+  <h1 id="heroName">NAME <em>Last</em></h1>
+  <div class="hero-bottom"><div class="manifesto" id="manifesto">Manifesto text here.</div><div class="hero-meta">Selected representation<br>India / Worldwide<br><br>Scroll to selected work ↓</div><div class="scroll-mark">FILMOGRAPHY / 2026</div></div>
 </section>
 <div class="marquee"><div class="marquee-track"><span><b>SELECTED WORK</b> — 16:9 / 1920×1080 — FILM / ADVERTISING — </span><span><b>SELECTED WORK</b> — 16:9 / 1920×1080 — FILM / ADVERTISING — </span><span><b>SELECTED WORK</b> — 16:9 / 1920×1080 — FILM / ADVERTISING — </span><span><b>SELECTED WORK</b> — 16:9 / 1920×1080 — FILM / ADVERTISING — </span></div></div>
 <section class="work">
-  <div class="section-head"><div class="section-label">02 — Selected films<br>All frames locked to 16:9</div><h2>Stories, not <em>thumbnails.</em></h2></div>
+  <div class="section-head"><div class="section-label">02 — Selected films<br>All frames locked to 16:9</div><h2 id="sectionTitle">Stories, not <em>thumbnails.</em></h2></div>
   <div class="film-grid" id="filmGrid"></div>
 </section>
-<section class="quote"><p>“The image should seduce you before the brand ever needs to explain itself.”</p><small>Director’s note / Bakery Films</small></section>
-<section class="next"><div class="next-top"><span>Next director</span><span>02 / 13</span></div><a href="#"><span>Simon Coull</span><small>View filmography ↗</small></a><div></div></section>
+<section class="quote"><p id="quoteText">"The image should seduce you before the brand ever needs to explain itself."</p><small>Director's note / Bakery Films</small></section>
+<section class="next"><div class="next-top"><span>Next director</span><span id="nextCount">02 / 13</span></div><a href="#" id="nextLink"><span id="nextName">Next Director</span><small>View filmography ↗</small></a><div></div></section>
 </main>
 <footer class="foot"><span>© 2026 BAKERY FILMS</span><span>MADE WITH <b class="love">♥</b> BY NORMAN JAMES</span></footer>
 <div class="player" id="player" aria-hidden="true"><div class="player-inner"><button class="player-close" id="playerClose">CLOSE [ESC]</button><video id="playerVideo" controls playsinline></video><div class="player-caption"><span id="playerTitle"></span><span>16:9 / 1920×1080</span></div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
 <script>
-const works=[
- {title:'Everyday, Reframed',client:'Brand Film',year:'2026',src:'media/My Movie 1.mp4'},
- {title:'The Long Way Home',client:'Automotive',year:'2026',src:'media/My Movie 1.mp4'},
- {title:'Objects in Motion',client:'Lifestyle',year:'2025',src:'media/My Movie 1.mp4'},
- {title:'A Small Revolution',client:'FMCG',year:'2025',src:'media/My Movie 1.mp4'},
- {title:'After the Noise',client:'Sports',year:'2025',src:'media/My Movie 1.mp4'},
- {title:'Make It Personal',client:'Technology',year:'2024',src:'media/My Movie 1.mp4'},
- {title:'Nothing Ordinary',client:'Fashion',year:'2024',src:'media/My Movie 1.mp4'}
+const directors=[
+ {name:"Shekar Kambli",first:"Shekar",last:"Kambli",role:"Director",slug:"shekar-kambli",num:"01",type:"Commercial + Narrative",manifesto:"Human instinct, graphic precision and a refusal to let the product interrupt the story.",quote:"The image should seduce you before the brand ever needs to explain itself.",sectionTitle:"Stories, not <em>thumbnails.</em>",works:[{title:"Everyday, Reframed",client:"Brand Film",year:"2026",src:"media/My Movie 1.mp4"},{title:"The Long Way Home",client:"Automotive",year:"2026",src:"media/My Movie 1.mp4"},{title:"Objects in Motion",client:"Lifestyle",year:"2025",src:"media/My Movie 1.mp4"},{title:"A Small Revolution",client:"FMCG",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"Simon Coull",first:"Simon",last:"Coull",role:"Director · In House",slug:"simon-coull",num:"02",type:"Director · In House",manifesto:"The frame is a contract. Every pixel earns its place or it doesn't belong.",quote:"Directing is not about being in control. It's about knowing when to let go.",sectionTitle:"Frames, not <em>filler.</em>",works:[{title:"The New Normal",client:"Beauty",year:"2026",src:"media/My Movie 1.mp4"},{title:"City / After Dark",client:"Culture",year:"2025",src:"media/My Movie 1.mp4"},{title:"Second Skin",client:"Fashion Film",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"Marlon Rodrigues",first:"Marlon",last:"Rodrigues",role:"Director",slug:"marlon-rodrigues",num:"03",type:"Commercial + Fashion",manifesto:"Light tells the truth. Everything else is art direction.",quote:"A good film makes you forget you're being sold to.",sectionTitle:"Light, not <em>logic.</em>",works:[{title:"Human Frequency",client:"Brand Film",year:"2026",src:"media/My Movie 1.mp4"},{title:"Nothing Ordinary",client:"Fashion",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"Bosco B",first:"Bosco",last:"B",role:"Director",slug:"bosco-b",num:"04",type:"Commercial + Culture",manifesto:"Energy is the ingredient you can't fake. The camera knows.",quote:"If the edit doesn't breathe, the audience won't either.",sectionTitle:"Energy, not <em>effort.</em>",works:[{title:"Make It Personal",client:"Technology",year:"2026",src:"media/My Movie 1.mp4"},{title:"The Everyday Cut",client:"Commercial",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"B. Avnish",first:"B.",last:"Avnish",role:"Director",slug:"b-avnish",num:"05",type:"Narrative + Documentary",manifesto:"Real stories don't need permission to be beautiful.",quote:"The best documentaries are the ones that feel like fiction.",sectionTitle:"Truth, not <em>technique.</em>",works:[{title:"After the Noise",client:"Sports",year:"2026",src:"media/My Movie 1.mp4"},{title:"The Long Way Home",client:"Automotive",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"Robbie Grewal",first:"Robbie",last:"Grewal",role:"Director",slug:"robbie-grewal",num:"06",type:"Commercial + Film",manifesto:"Cinematic doesn't mean slow. It means every frame matters.",quote:"A 30-second spot should feel like a trailer for a world you want to live in.",sectionTitle:"Cinema, not <em>content.</em>",works:[{title:"A Small Revolution",client:"FMCG",year:"2026",src:"media/My Movie 1.mp4"},{title:"Objects in Motion",client:"Lifestyle",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"Hiiren Nasta",first:"Hiiren",last:"Nasta",role:"Director",slug:"hiiren-nasta",num:"07",type:"Fashion + Beauty",manifesto:"Beauty is a rhythm. You feel it before you see it.",quote:"Fashion film is poetry with a product placement.",sectionTitle:"Rhythm, not <em>recipe.</em>",works:[{title:"Nothing Ordinary",client:"Fashion",year:"2026",src:"media/My Movie 1.mp4"},{title:"Second Skin",client:"Fashion Film",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"Khit ee j Dua",first:"Khit ee j",last:"Dua",role:"Director",slug:"khiteej-dua",num:"08",type:"Commercial + Narrative",manifesto:"The best ads don't look like ads. They look like moments.",quote:"Every brand has a voice. I help them find their accent.",sectionTitle:"Moments, not <em>messages.</em>",works:[{title:"The New Ritual",client:"Beauty",year:"2026",src:"media/My Movie 1.mp4"},{title:"Human Frequency",client:"Brand Film",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"Llyod Bapista",first:"Llyod",last:"Bapista",role:"Director",slug:"llyod-bapista",num:"09",type:"Commercial + Action",manifesto:"Motion is emotion. If the camera moves, the audience should feel it.",quote:"Action without story is just noise.",sectionTitle:"Motion, not <em>mayhem.</em>",works:[{title:"The Everyday Cut",client:"Commercial",year:"2026",src:"media/My Movie 1.mp4"},{title:"After the Noise",client:"Sports",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"Alok Kulkarni",first:"Alok",last:"Kulkarni",role:"Director",slug:"alok-kulkarni",num:"10",type:"Documentary + Brand",manifesto:"Authenticity is the most expensive thing in advertising.",quote:"If you have to explain the joke, it wasn't funny.",sectionTitle:"Authentic, not <em>adjusted.</em>",works:[{title:"City / After Dark",client:"Culture",year:"2026",src:"media/My Movie 1.mp4"},{title:"Make It Personal",client:"Technology",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"Abhijit Chaudhri",first:"Abhijit",last:"Chaudhri",role:"Director",slug:"abhijit-chaudhri",num:"11",type:"Narrative + Culture",manifesto:"Stories travel. Good ones arrive before the words do.",quote:"Culture isn't a backdrop. It's the main character.",sectionTitle:"Stories, not <em>specs.</em>",works:[{title:"The Long Way Home",client:"Automotive",year:"2026",src:"media/My Movie 1.mp4"},{title:"A Small Revolution",client:"FMCG",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"Sizil Srivastav",first:"Sizil",last:"Srivastav",role:"Director",slug:"sizil-srivastav",num:"12",type:"Fashion + Art",manifesto:"Fashion is architecture for the body. Film is architecture for time.",quote:"Every collection deserves a world, not just a runway.",sectionTitle:"Worlds, not <em>runways.</em>",works:[{title:"Second Skin",client:"Fashion Film",year:"2026",src:"media/My Movie 1.mp4"},{title:"Nothing Ordinary",client:"Fashion",year:"2025",src:"media/My Movie 1.mp4"}]},
+ {name:"Jessica Sadana",first:"Jessica",last:"Sadana",role:"Director",slug:"jessica-sadana",num:"13",type:"Commercial + Lifestyle",manifesto:"The everyday is extraordinary if you point the camera right.",quote:"Simple is hard. That's why most people avoid it.",sectionTitle:"Simple, not <em>safe.</em>",works:[{title:"Human Frequency",client:"Brand Film",year:"2026",src:"media/My Movie 1.mp4"},{title:"Objects in Motion",client:"Lifestyle",year:"2025",src:"media/My Movie 1.mp4"}]}
 ];
+
+const slug=new URLSearchParams(location.search).get('director');
+const d=directors.find(x=>x.slug===slug)||directors[0];
+const idx=directors.indexOf(d);
+
+document.title='Bakery Films — '+d.name;
+document.querySelector('#chapter').textContent='DIRECTOR / '+d.num+' — MUMBAI';
+document.querySelector('#kickerNum').textContent='Director '+d.num;
+document.querySelector('#kickerType').textContent=d.type;
+document.querySelector('#heroName').innerHTML=d.first+' <em>'+d.last+'</em>';
+document.querySelector('#manifesto').textContent=d.manifesto;
+document.querySelector('#sectionTitle').innerHTML=d.sectionTitle;
+document.querySelector('#quoteText').textContent='"'+d.quote+'"';
+
+const nextIdx=(idx+1)%directors.length;
+const next=directors[nextIdx];
+document.querySelector('#nextCount').textContent=String(nextIdx+1).padStart(2,'0')+' / '+String(directors.length).padStart(2,'0');
+document.querySelector('#nextName').textContent=next.first+' '+next.last;
+document.querySelector('#nextLink').href='director.html?director='+next.slug;
+
 const grid=document.querySelector('#filmGrid');
-works.forEach((w,i)=>{const el=document.createElement('article');el.className='film';el.innerHTML=`<div class="film-media"><video src="${w.src}" muted loop playsinline preload="metadata"></video><div class="shade"></div><span class="film-no">${String(i+1).padStart(2,'0')}</span><span class="play">▶</span></div><div class="film-cap"><div class="film-title">${w.title}</div><div class="film-meta">${w.client}<br>${w.year}</div></div>`;const v=el.querySelector('video');el.addEventListener('mouseenter',()=>v.play().catch(()=>{}));el.addEventListener('mouseleave',()=>{v.pause();v.currentTime=0});el.addEventListener('click',()=>openPlayer(w));grid.appendChild(el)});
+d.works.forEach((w,i)=>{const el=document.createElement('article');el.className='film';el.innerHTML=`<div class="film-media"><video src="${w.src}" muted loop playsinline preload="metadata"></video><div class="shade"></div><span class="film-no">${String(i+1).padStart(2,'0')}</span><span class="play">▶</span></div><div class="film-cap"><div class="film-title">${w.title}</div><div class="film-meta">${w.client}<br>${w.year}</div></div>`;const v=el.querySelector('video');el.addEventListener('mouseenter',()=>v.play().catch(()=>{}));el.addEventListener('mouseleave',()=>{v.pause();v.currentTime=0});el.addEventListener('click',()=>openPlayer(w));grid.appendChild(el)});
+
 const player=document.querySelector('#player'),pv=document.querySelector('#playerVideo'),pt=document.querySelector('#playerTitle');function openPlayer(w){pt.textContent=w.title+' / '+w.client;pv.src=w.src;player.classList.add('open');player.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';pv.play().catch(()=>{})}function closePlayer(){pv.pause();pv.removeAttribute('src');pv.load();player.classList.remove('open');player.setAttribute('aria-hidden','true');document.body.style.overflow=''}document.querySelector('#playerClose').onclick=closePlayer;player.addEventListener('click',e=>{if(e.target===player)closePlayer()});addEventListener('keydown',e=>{if(e.key==='Escape')closePlayer()});
 let p=0;const bar=document.querySelector('#preBar'),cnt=document.querySelector('#preCount'),pre=document.querySelector('#preloader');const timer=setInterval(()=>{p=Math.min(100,p+Math.ceil(Math.random()*9));bar.style.width=p+'%';cnt.textContent=String(p).padStart(2,'0');if(p>=100){clearInterval(timer);setTimeout(()=>pre.classList.add('done'),250)}},55);
 if(window.Lenis){const lenis=new Lenis({duration:1.05,smoothWheel:true});function raf(t){lenis.raf(t);requestAnimationFrame(raf)}requestAnimationFrame(raf)}

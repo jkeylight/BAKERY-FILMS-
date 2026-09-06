@@ -161,14 +161,14 @@ h1 em{display:block;margin-left:clamp(20px,15vw,250px);font:400 clamp(58px,10vw,
 <script src="https://unpkg.com/@barba/core"></script>
 <script>
 const entries=[
- {date:"Sep 2026",tag:"Digital Film",title:"Simply Life — <em>Card Control</em>",excerpt:"A lifestyle film for Simply Life capturing the quiet rhythm of everyday moments. Shot on location with natural light and minimal crew.",src:"media/My Movie 1.mp4",type:"video"},
- {date:"Aug 2026",tag:"Campaign",title:"NAGAD — <em>Digital Payment</em>",excerpt:"High-energy commercial for NAGAD's digital payment platform. Bold colour, fast cuts, and a soundtrack that hits.",src:"media/My Movie 1.mp4",type:"video"},
- {date:"Jul 2026",tag:"Digital Film",title:"Simply Life — <em>Teacher</em>",excerpt:"A 40-second portrait of connection. Teacher explores the bond between mentor and student through a single, sustained frame.",src:"media/My Movie 1.mp4",type:"video"},
- {date:"Jun 2026",tag:"Social Campaign",title:"MX Takatak × <em>Badshah</em>",excerpt:"Our newest work for MX Takatak featuring Badshah. Vertical-first content designed for scroll-stopping impact.",src:"media/My Movie 1.mp4",type:"video"},
- {date:"May 2026",tag:"Sports Film",title:"Pro Volleyball — <em>Game Day</em>",excerpt:"Capturing the intensity of professional volleyball. Slow-motion rallies, raw emotion, and courtside atmosphere.",src:"media/My Movie 1.mp4",type:"video"},
- {date:"Apr 2026",tag:"Automotive",title:"Mahindra Road Master <em>G75</em>",excerpt:"Contractor-grade toughness meets cinematic storytelling. The Road Master G75 film for Mahindra's commercial vehicle division.",src:"media/My Movie 1.mp4",type:"video"},
- {date:"Mar 2026",tag:"Brand Film",title:"Panasonic Batteries × <em>PV Sindhu</em>",excerpt:"60-second brand film with PV Sindhu for Panasonic. Performance, endurance, and the will to keep going.",src:"media/My Movie 1.mp4",type:"video"},
- {date:"Feb 2026",tag:"Digital Film",title:"Simply Life — <em>Fight Scene</em>",excerpt:"A 45-second vignette for Simply Life. Two people, one frame, and the tension that lives between them.",src:"media/My Movie 1.mp4",type:"video"}
+ {date:"Sep 2026",tag:"Digital Film",title:"Simply Life — <em>Card Control</em>",excerpt:"A lifestyle film for Simply Life capturing the quiet rhythm of everyday moments. Shot on location with natural light and minimal crew.",src:"https://video.wixstatic.com/video/c02525_206e39c455f045f29c27e10958d15698/720p/mp4/file.mp4",type:"video"},
+ {date:"Aug 2026",tag:"Campaign",title:"NAGAD — <em>Digital Payment</em>",excerpt:"High-energy commercial for NAGAD's digital payment platform. Bold colour, fast cuts, and a soundtrack that hits.",src:"https://video.wixstatic.com/video/c02525_f38159eb969944229e17fb8d1ccfcf7f/720p/mp4/file.mp4",type:"video"},
+ {date:"Jul 2026",tag:"Digital Film",title:"Simply Life — <em>Teacher</em>",excerpt:"A 40-second portrait of connection. Teacher explores the bond between mentor and student through a single, sustained frame.",src:"https://video.wixstatic.com/video/c02525_8f83eb45470e411b8f42d0412c6d2bfa/720p/mp4/file.mp4",type:"video"},
+ {date:"Jun 2026",tag:"Social Campaign",title:"MX Takatak × <em>Badshah</em>",excerpt:"Our newest work for MX Takatak featuring Badshah. Vertical-first content designed for scroll-stopping impact.",src:"https://video.wixstatic.com/video/c02525_a7d476c8b3454b5bbd5d400232540815/720p/mp4/file.mp4",type:"video"},
+ {date:"May 2026",tag:"Sports Film",title:"Pro Volleyball — <em>Game Day</em>",excerpt:"Capturing the intensity of professional volleyball. Slow-motion rallies, raw emotion, and courtside atmosphere.",src:"https://video.wixstatic.com/video/c02525_14bb12c437674a86a260cf17a9378c88/720p/mp4/file.mp4",type:"video"},
+ {date:"Apr 2026",tag:"Automotive",title:"Mahindra Road Master <em>G75</em>",excerpt:"Contractor-grade toughness meets cinematic storytelling. The Road Master G75 film for Mahindra's commercial vehicle division.",src:"https://video.wixstatic.com/video/c02525_e71fe48ce50f4b569fa92118531de2fa/720p/mp4/file.mp4",type:"video"},
+ {date:"Mar 2026",tag:"Brand Film",title:"Panasonic Batteries × <em>PV Sindhu</em>",excerpt:"60-second brand film with PV Sindhu for Panasonic. Performance, endurance, and the will to keep going.",src:"https://video.wixstatic.com/video/c02525_8a64fb5f14e841d9a4dc765dd76f1dc2/720p/mp4/file.mp4",type:"video"},
+ {date:"Feb 2026",tag:"Digital Film",title:"Simply Life — <em>Fight Scene</em>",excerpt:"A 45-second vignette for Simply Life. Two people, one frame, and the tension that lives between them.",src:"https://video.wixstatic.com/video/c02525_0719edfa4c354c9fb7f9ce5c27e5e673/720p/mp4/file.mp4",type:"video"}
 ];
 
 const entriesEl=document.querySelector('#entries');
@@ -188,10 +188,10 @@ entries.forEach((e,i)=>{
 });
 
 const featured=[
- {title:"Simply Life — Card Control",client:"Digital Film",year:"2026",director:"Bakery Films",src:"media/My Movie 1.mp4"},
- {title:"MX Takatak × Badshah",client:"Social Campaign",year:"2026",director:"Bakery Films",src:"media/My Movie 1.mp4"},
- {title:"Panasonic × PV Sindhu",client:"Brand Film",year:"2026",director:"Bakery Films",src:"media/My Movie 1.mp4"},
- {title:"Mahindra Road Master G75",client:"Automotive",year:"2026",director:"Bakery Films",src:"media/My Movie 1.mp4"}
+ {title:"Simply Life — Card Control",client:"Digital Film",year:"2026",director:"Bakery Films",src:"https://video.wixstatic.com/video/c02525_206e39c455f045f29c27e10958d15698/720p/mp4/file.mp4"},
+ {title:"MX Takatak × Badshah",client:"Social Campaign",year:"2026",director:"Bakery Films",src:"https://video.wixstatic.com/video/c02525_a7d476c8b3454b5bbd5d400232540815/720p/mp4/file.mp4"},
+ {title:"Panasonic × PV Sindhu",client:"Brand Film",year:"2026",director:"Bakery Films",src:"https://video.wixstatic.com/video/c02525_8a64fb5f14e841d9a4dc765dd76f1dc2/720p/mp4/file.mp4"},
+ {title:"Mahindra Road Master G75",client:"Automotive",year:"2026",director:"Bakery Films",src:"https://video.wixstatic.com/video/c02525_e71fe48ce50f4b569fa92118531de2fa/720p/mp4/file.mp4"}
 ];
 
 const fGrid=document.querySelector('#featuredGrid');

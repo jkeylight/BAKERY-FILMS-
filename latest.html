@@ -100,15 +100,13 @@ h1 em{display:block;margin-left:clamp(20px,15vw,250px);font:400 clamp(58px,10vw,
  </div>
 </div>
 <div class="noise"></div>
-
+<div data-barba="wrapper">
+<main data-barba="container" data-namespace="latest">
 <header class="site-head">
  <a class="logo" href="index.html">Bakery Films</a>
  <div class="chapter">BAKERY FILMS / LATEST</div>
  <button class="menu" onclick="history.back()">BACK ↗</button>
 </header>
-
-<div data-barba="wrapper">
-<main data-barba="container">
 <section class="hero">
  <div class="kicker"><span><strong>03 — Latest</strong></span><span>Bakery Films / India</span><span>Film · News · Updates</span></div>
  <h1>THE <em>latest.</em></h1>
@@ -163,14 +161,14 @@ h1 em{display:block;margin-left:clamp(20px,15vw,250px);font:400 clamp(58px,10vw,
 <script src="https://unpkg.com/@barba/core"></script>
 <script>
 const entries=[
- {date:"Sep 2026",tag:"Commission",title:"Bakery Films x Lakme <em>Fashion Week</em>",excerpt:"New campaign for Lakme's summer collection — shot across three cities in 72 hours. Raw beauty, no retouching.",src:"media/My Movie 1.mp4",type:"video"},
- {date:"Aug 2026",tag:"Festival",title:"Shortlisted at <em>Ciclope</em> 2026",excerpt:"Our work for Fanta's summer campaign selected in the Film Craft category. Barcelona, November.",src:null,type:"text"},
- {date:"Jul 2026",tag:"Behind the Scenes",title:"The Making of <em>Objects in Motion</em>",excerpt:"Director Marlon Rodrigues takes us through the three-day shoot for the lifestyle brand film.",src:"media/My Movie 1.mp4",type:"video"},
- {date:"Jun 2026",tag:"New Director",title:"Jessica Sadana <em>joins roster</em>",excerpt:"Award-winning filmmaker specializing in lifestyle and brand films. Her reel speaks for itself.",src:null,type:"text"},
- {date:"May 2026",tag:"Award",title:"Gold at <em>Goafest</em> for Toyota",excerpt:"The Toyota Etios Cross campaign wins gold in the Film Craft category. Director: Robbie Grewal.",src:null,type:"text"},
- {date:"Apr 2026",tag:"Campaign",title:"Nivea BFF — <em>Best Friends Forever</em>",excerpt:"A 90-second film about the small moments that make friendships last. Shot on location in Goa.",src:"media/My Movie 1.mp4",type:"video"},
- {date:"Mar 2026",tag:"Release",title:"L'Oreal <em>Think and Stop</em> drops",excerpt:"New beauty film exploring the tension between impulse and intention. Director: Alok Kulkarni.",src:"media/My Movie 1.mp4",type:"video"},
- {date:"Feb 2026",tag:"Event",title:"Bakery Films at <em>AdFest</em> 2026",excerpt:"Panel discussion on the future of commercial filmmaking. Kirk Dias and DJ representing.",src:null,type:"text"}
+ {date:"Sep 2026",tag:"Digital Film",title:"Simply Life — <em>Card Control</em>",excerpt:"A lifestyle film for Simply Life capturing the quiet rhythm of everyday moments. Shot on location with natural light and minimal crew.",src:"media/My Movie 1.mp4",type:"video"},
+ {date:"Aug 2026",tag:"Campaign",title:"NAGAD — <em>Digital Payment</em>",excerpt:"High-energy commercial for NAGAD's digital payment platform. Bold colour, fast cuts, and a soundtrack that hits.",src:"media/My Movie 1.mp4",type:"video"},
+ {date:"Jul 2026",tag:"Digital Film",title:"Simply Life — <em>Teacher</em>",excerpt:"A 40-second portrait of connection. Teacher explores the bond between mentor and student through a single, sustained frame.",src:"media/My Movie 1.mp4",type:"video"},
+ {date:"Jun 2026",tag:"Social Campaign",title:"MX Takatak × <em>Badshah</em>",excerpt:"Our newest work for MX Takatak featuring Badshah. Vertical-first content designed for scroll-stopping impact.",src:"media/My Movie 1.mp4",type:"video"},
+ {date:"May 2026",tag:"Sports Film",title:"Pro Volleyball — <em>Game Day</em>",excerpt:"Capturing the intensity of professional volleyball. Slow-motion rallies, raw emotion, and courtside atmosphere.",src:"media/My Movie 1.mp4",type:"video"},
+ {date:"Apr 2026",tag:"Automotive",title:"Mahindra Road Master <em>G75</em>",excerpt:"Contractor-grade toughness meets cinematic storytelling. The Road Master G75 film for Mahindra's commercial vehicle division.",src:"media/My Movie 1.mp4",type:"video"},
+ {date:"Mar 2026",tag:"Brand Film",title:"Panasonic Batteries × <em>PV Sindhu</em>",excerpt:"60-second brand film with PV Sindhu for Panasonic. Performance, endurance, and the will to keep going.",src:"media/My Movie 1.mp4",type:"video"},
+ {date:"Feb 2026",tag:"Digital Film",title:"Simply Life — <em>Fight Scene</em>",excerpt:"A 45-second vignette for Simply Life. Two people, one frame, and the tension that lives between them.",src:"media/My Movie 1.mp4",type:"video"}
 ];
 
 const entriesEl=document.querySelector('#entries');
@@ -190,10 +188,10 @@ entries.forEach((e,i)=>{
 });
 
 const featured=[
- {title:"Everyday, Reframed",client:"Brand Film",year:"2026",director:"Shekar Kambli",src:"media/My Movie 1.mp4"},
- {title:"The Long Way Home",client:"Automotive",year:"2026",director:"Simon Coull",src:"media/My Movie 1.mp4"},
- {title:"Objects in Motion",client:"Lifestyle",year:"2026",director:"Marlon Rodrigues",src:"media/My Movie 1.mp4"},
- {title:"A Small Revolution",client:"FMCG",year:"2025",director:"Bosco B",src:"media/My Movie 1.mp4"}
+ {title:"Simply Life — Card Control",client:"Digital Film",year:"2026",director:"Bakery Films",src:"media/My Movie 1.mp4"},
+ {title:"MX Takatak × Badshah",client:"Social Campaign",year:"2026",director:"Bakery Films",src:"media/My Movie 1.mp4"},
+ {title:"Panasonic × PV Sindhu",client:"Brand Film",year:"2026",director:"Bakery Films",src:"media/My Movie 1.mp4"},
+ {title:"Mahindra Road Master G75",client:"Automotive",year:"2026",director:"Bakery Films",src:"media/My Movie 1.mp4"}
 ];
 
 const fGrid=document.querySelector('#featuredGrid');

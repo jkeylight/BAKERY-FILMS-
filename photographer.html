@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Bakery Films — Photographer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--fg:#f2efe9;--muted:#8e8b85;--line:rgba(242,239,233,.16);--accent:#ff4d24;--pad:clamp(18px,2.2vw,36px)}
+*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:auto}body{margin:0;background:var(--bg);color:var(--fg);font-family:Manrope,Arial,sans-serif;overflow-x:hidden}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E")}
+.preloader{position:fixed;inset:0;z-index:999;background:#0a0a0a;display:grid;place-items:center;transition:opacity .7s cubic-bezier(.76,0,.24,1),visibility .7s}.preloader.done{opacity:0;visibility:hidden}
+.pre-wrap{width:min(560px,calc(100vw - 48px));display:grid;gap:15px}
+.pre-top{display:flex;justify-content:space-between;font:400 10px/1 DM Mono,monospace;letter-spacing:.16em;text-transform:uppercase}
+.pre-line{height:1px;background:#252525;overflow:hidden}.pre-bar{height:100%;width:0;background:var(--fg);transition:width .15s}
+.pre-count{font:300 clamp(46px,8vw,104px)/.8 Manrope,sans-serif;letter-spacing:-.07em;text-align:right}
+.site-head{position:fixed;z-index:60;top:0;left:0;right:0;height:78px;padding:0 var(--pad);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;mix-blend-mode:difference;color:#fff;pointer-events:none}.site-head a,.site-head button{pointer-events:auto}
+.logo{font:300 14px/1 DM Mono,monospace;letter-spacing:-.06em;color:inherit;text-decoration:none}
+.chapter{font:400 9px/1 DM Mono,monospace;letter-spacing:.18em;text-transform:uppercase}
+.menu{justify-self:end;border:0;background:none;color:inherit;padding:10px 0;font:400 9px/1 DM Mono,monospace;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+.hero{min-height:100svh;padding:130px var(--pad) 36px;display:flex;flex-direction:column;justify-content:flex-end;border-bottom:1px solid var(--line)}
+.hero-kicker{display:flex;gap:24px;align-items:center;margin-bottom:26px;color:var(--muted);font:400 10px/1 DM Mono,monospace;letter-spacing:.16em;text-transform:uppercase}.hero-kicker span:first-child{color:var(--fg)}
+.hero h1{margin:0;max-width:15ch;font:300 clamp(64px,14vw,220px)/.72 Manrope,sans-serif;letter-spacing:-.085em;text-transform:uppercase}
+.hero h1 em{display:block;margin-left:clamp(25px,10vw,180px);font:400 clamp(48px,10vw,158px)/.8 Playfair Display,serif;text-transform:none;letter-spacing:-.055em}
+.hero-bottom{margin-top:clamp(46px,7vw,110px);display:grid;grid-template-columns:1.1fr 1fr auto;gap:40px;align-items:end}
+.manifesto{max-width:700px;font-size:clamp(18px,2.1vw,31px);line-height:1.14;letter-spacing:-.03em}
+.hero-meta{font:400 10px/1.65 DM Mono,monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.11em}
+.scroll-mark{font:400 10px/1 DM Mono,monospace;writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.14em;color:var(--muted)}
+.marquee{overflow:hidden;border-bottom:1px solid var(--line);padding:14px 0}.marquee-track{display:flex;width:max-content;gap:38px;animation:marquee 28s linear infinite;font:400 10px/1 DM Mono,monospace;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}.marquee b{font-weight:400;color:var(--fg)}@keyframes marquee{to{transform:translateX(-50%)}}
+.portfolio{padding:clamp(82px,10vw,160px) var(--pad)}
+.section-head{display:grid;grid-template-columns:1fr 2fr;gap:30px;margin-bottom:clamp(40px,6vw,90px);align-items:end}
+.section-label{font:400 10px/1 DM Mono,monospace;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.section-head h2{margin:0;font:300 clamp(48px,7vw,112px)/.83 Manrope,sans-serif;letter-spacing:-.065em;text-transform:uppercase}.section-head h2 em{font-family:Playfair Display,serif;font-weight:400;text-transform:none}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(24px,4vw,60px) 14px}
+.img-card{cursor:pointer;overflow:hidden;position:relative}
+.img-card:nth-child(odd){grid-column:span 7}.img-card:nth-child(even){grid-column:span 5}
+.img-card:nth-child(3n){grid-column:span 8}.img-card:nth-child(3n+1){grid-column:span 4}
+.img-card img{width:100%;display:block;object-fit:cover;transform:scale(1.001);transition:transform .85s cubic-bezier(.16,1,.3,1)}
+.img-card:hover img{transform:scale(1.035)}
+.img-card .img-num{position:absolute;top:12px;left:14px;font:400 9px/1 DM Mono,monospace;letter-spacing:.13em;color:rgba(255,255,255,.7)}
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(5,5,5,.96);display:grid;place-items:center;padding:clamp(18px,4vw,64px);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;cursor:zoom-out}.lightbox.open{opacity:1;visibility:visible}
+.lightbox img{max-width:min(1400px,100%);max-height:90vh;object-fit:contain;display:block}
+.lightbox-close{position:fixed;top:24px;right:24px;border:0;background:none;color:#fff;font:400 9px/1 DM Mono,monospace;letter-spacing:.15em;cursor:pointer;z-index:301}
+.next{min-height:72svh;padding:50px var(--pad);display:flex;flex-direction:column;justify-content:space-between}
+.next-top{display:flex;justify-content:space-between;font:400 9px/1 DM Mono,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.next a{align-self:center;color:var(--fg);text-decoration:none;text-align:center}.next a span{display:block;font:400 clamp(58px,11vw,172px)/.8 Playfair Display,serif;letter-spacing:-.055em}.next a small{display:block;margin-top:18px;font:400 9px/1 DM Mono,monospace;letter-spacing:.16em;text-transform:uppercase}
+.foot{border-top:1px solid var(--line);min-height:84px;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between;gap:25px;font:400 9px/1.5 DM Mono,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.love{color:var(--accent)}
+@media(max-width:800px){.site-head{height:64px;grid-template-columns:1fr auto}.chapter{display:none}.hero{padding-top:104px}.hero h1{font-size:clamp(60px,21vw,104px)}.hero h1 em{margin-left:10vw;font-size:clamp(44px,16vw,80px)}.hero-bottom{grid-template-columns:1fr;gap:26px}.scroll-mark{display:none}.section-head{grid-template-columns:1fr}.gallery{display:block}.img-card,.img-card:nth-child(odd),.img-card:nth-child(even),.img-card:nth-child(3n),.img-card:nth-child(3n+1){width:100%;margin-bottom:24px;grid-column:span 12}.next{min-height:55svh}.foot{align-items:flex-start;flex-direction:column;justify:center}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.marquee-track{animation:none}.img-card img{transition:none}}
+</style>
+</head>
+<body>
+<div class="preloader" id="preloader"><div class="pre-wrap"><div class="pre-top"><span>Bakery Films / Photographer</span><span>Loading portfolio</span></div><div class="pre-line"><div class="pre-bar" id="preBar"></div></div><div class="pre-count" id="preCount">00</div></div></div>
+<div class="noise"></div>
+<header class="site-head"><a class="logo" href="index.html">Bakery Films</a><div class="chapter" id="chapter">PHOTOGRAPHER — MUMBAI</div><button class="menu" onclick="history.back()">BACK ↗</button></header>
+<div data-barba="wrapper">
+<main data-barba="container">
+<section class="hero">
+<div class="hero-kicker"><span id="kickerNum">Photographer 01</span><span>Bakery Films / Mumbai</span><span id="kickerType">Still + Editorial</span></div>
+<h1 id="heroName">NAME <em>Last</em></h1>
+<div class="hero-bottom"><div class="manifesto" id="manifesto">Manifesto text here.</div><div class="hero-meta">Selected representation<br>India / Worldwide<br><br>Scroll to portfolio ↓</div><div class="scroll-mark">PORTFOLIO / 2026</div></div>
+</section>
+<div class="marquee"><div class="marquee-track"><span><b>PORTFOLIO</b> — STILL / 1920×1080 — PHOTOGRAPHY / EDITORIAL — </span><span><b>PORTFOLIO</b> — STILL / 1920×1080 — PHOTOGRAPHY / EDITORIAL — </span><span><b>PORTFOLIO</b> — STILL / 1920×1080 — PHOTOGRAPHY / EDITORIAL — </span><span><b>PORTFOLIO</b> — STILL / 1920×1080 — PHOTOGRAPHY / EDITORIAL — </span></div></div>
+<section class="portfolio">
+<div class="section-head"><div class="section-label">02 — Selected work<br>All frames still photography</div><h2 id="sectionTitle">Vision, not <em>versions.</em></h2></div>
+<div class="gallery" id="gallery"></div>
+</section>
+<section class="next"><div class="next-top"><span>Next photographer</span><span id="nextCount">02 / 04</span></div><a href="#" id="nextLink"><span id="nextName">Next Photographer</span><small>View portfolio ↗</small></a><div></div></section>
+</main>
+</div>
+<div class="page-transition"><div class="curtain"></div></div>
+<footer class="foot"><span>© 2026 BAKERY FILMS</span><span>MADE WITH <b class="love">♥</b> BY NORMAN JAMES</span></footer>
+<div class="lightbox" id="lightbox" aria-hidden="true"><button class="lightbox-close" id="lightboxClose">CLOSE [ESC]</button><img id="lightboxImg" src="" alt=""></div>
+<link rel="stylesheet" href="transition.css">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/@barba/core"></script>
+<script>
+const photographers=[
+ {name:"Mukul Raut",first:"Mukul",last:"Raut",role:"Photographer",slug:"mukul-raut",num:"01",type:"Still + Commercial",manifesto:"Light first, everything else after. The frame is only ever as good as the one behind it.",sectionTitle:"Light, not <em>luck.</em>",images:[
+  {src:"https://static.wixstatic.com/media/c02525_2b227ee644aa47fd9996830a31ca55cf~mv2.jpg/v1/fit/w_1500,h_1000,q_90/c02525_2b227ee644aa47fd9996830a31ca55cf~mv2.jpg",alt:"Mukul Raut — Portfolio 1"},
+  {src:"https://static.wixstatic.com/media/c02525_f5dcec03493a40d2b3b633ec174fc0db~mv2.jpg/v1/fit/w_1536,h_699,q_90/c02525_f5dcec03493a40d2b3b633ec174fc0db~mv2.jpg",alt:"Mukul Raut — Portfolio 2"}
+ ]},
+ {name:"Norman James",first:"Norman",last:"James",role:"Photographer",slug:"norman-james",num:"02",type:"Editorial + Fashion",manifesto:"Every portrait is a conversation between light and shadow. I just press the shutter.",sectionTitle:"Frames, not <em>filters.</em>",images:[
+  {src:"https://static.wixstatic.com/media/8bb438_3ae04589aef4480e89a24d7283c69798~mv2_d_2869_3586_s_4_2.jpg/v1/fill/w_1595,h_4560,q_90/8bb438_3ae04589aef4480e89a24d7283c69798~mv2_d_2869_3586_s_4_2.jpg",alt:"Norman James — Portfolio 1"},
+  {src:"https://static.wixstatic.com/media/8bb438_734b8f436e944886b4185aa6f72b5cad~mv2_d_3000_2000_s_2.jpg/v1/fill/w_1448,h_4139,q_90/8bb438_734b8f436e944886b4185aa6f72b5cad~mv2_d_3000_2000_s_2.jpg",alt:"Norman James — Portfolio 2"},
+  {src:"https://static.wixstatic.com/media/8bb438_ac2af14459894a6cbce641b7d8af9dc9~mv2_d_3000_2000_s_2.jpg/v1/fill/w_1448,h_4139,q_90/8bb438_ac2af14459894a6cbce641b7d8af9dc9~mv2_d_3000_2000_s_2.jpg",alt:"Norman James — Portfolio 3"},
+  {src:"https://static.wixstatic.com/media/8bb438_b596f0cc1c134605b59843a052cd8f37~mv2_d_3000_2930_s_4_2.jpg/v1/fill/w_1595,h_4560,q_90/8bb438_b596f0cc1c134605b59843a052cd8f37~mv2_d_3000_2930_s_4_2.jpg",alt:"Norman James — Portfolio 4"},
+  {src:"https://static.wixstatic.com/media/8bb438_288176fe374c49949c53917e808c1410~mv2_d_8192_7754_s_4_2.jpg/v1/fill/w_1595,h_4560,q_90/8bb438_288176fe374c49949c53917e808c1410~mv2_d_8192_7754_s_4_2.jpg",alt:"Norman James — Portfolio 5"},
+  {src:"https://static.wixstatic.com/media/8bb438_ec9a72099f9648dfb08d9412804a464a~mv2_d_3000_2000_s_2.jpg/v1/fill/w_1448,h_4139,q_90/8bb438_ec9a72099f9648dfb08d9412804a464a~mv2_d_3000_2000_s_2.jpg",alt:"Norman James — Portfolio 6"}
+ ]},
+ {name:"Kunal Kampani",first:"Kunal",last:"Kampani",role:"Photographer",slug:"kunal-kampani",num:"03",type:"Commercial + Product",manifesto:"Detail is everything. If you can't see the texture, you can't feel the product.",sectionTitle:"Detail, not <em>decor.</em>",images:[
+  {src:"https://static.wixstatic.com/media/c02525_909712ae4b3a4177bd2945c5d30202fd~mv2.png/v1/fit/w_1639,h_922,q_90/c02525_909712ae4b3a4177bd2945c5d30202fd~mv2.png",alt:"Kunal Kampani — Portfolio 1"},
+  {src:"https://static.wixstatic.com/media/c02525_8b41b5cc66994d3f80b5caabe099ec65~mv2.png/v1/fit/w_1383,h_922,q_90/c02525_8b41b5cc66994d3f80b5caabe099ec65~mv2.png",alt:"Kunal Kampani — Portfolio 2"}
+ ]},
+ {name:"Rudra Sen",first:"Rudra",last:"Sen",role:"Photographer",slug:"rudra-sen",num:"04",type:"Automotive + Lifestyle",manifesto:"The machine breathes. You just have to wait for the right moment to capture it.",sectionTitle:"Moments, not <em>machines.</em>",images:[
+  {src:"https://static.wixstatic.com/media/c02525_ce7ee37c173c4d5cb383ea8c74650605~mv2.png/v1/fill/w_1978,h_2635,q_90/c02525_ce7ee37c173c4d5cb383ea8c74650605~mv2.png",alt:"Rudra Sen — Portfolio 1"},
+  {src:"https://static.wixstatic.com/media/c02525_f07e8cab1b394a0a90b9d49cbd6b3720~mv2.png/v1/fill/w_1979,h_2636,q_90/c02525_f07e8cab1b394a0a90b9d49cbd6b3720~mv2.png",alt:"Rudra Sen — Portfolio 2"},
+  {src:"https://static.wixstatic.com/media/c02525_72eb40c9cd074a4c83fb79a577e1a233~mv2.png/v1/fill/w_1979,h_2636,q_90/c02525_72eb40c9cd074a4c83fb79a577e1a233~mv2.png",alt:"Rudra Sen — Portfolio 3"}
+ ]}
+];
+const slug=new URLSearchParams(location.search).get('photographer');
+const d=photographers.find(x=>x.slug===slug)||photographers[0];
+const idx=photographers.indexOf(d);
+document.title='Bakery Films — '+d.name;
+document.querySelector('#chapter').textContent='PHOTOGRAPHER / '+d.num+' — MUMBAI';
+document.querySelector('#kickerNum').textContent='Photographer '+d.num;
+document.querySelector('#kickerType').textContent=d.type;
+document.querySelector('#heroName').innerHTML=d.first+' <em>'+d.last+'</em>';
+document.querySelector('#manifesto').textContent=d.manifesto;
+document.querySelector('#sectionTitle').innerHTML=d.sectionTitle;
+const nextIdx=(idx+1)%photographers.length;const next=photographers[nextIdx];
+document.querySelector('#nextCount').textContent=String(nextIdx+1).padStart(2,'0')+' / '+String(photographers.length).padStart(2,'0');
+document.querySelector('#nextName').textContent=next.first+' '+next.last;
+document.querySelector('#nextLink').href='photographer.html?photographer='+next.slug;
+const gallery=document.querySelector('#gallery');
+d.images.forEach((img,i)=>{const el=document.createElement('article');el.className='img-card';el.innerHTML=`<img src="${img.src}" alt="${img.alt}" loading="lazy"><span class="img-num">${String(i+1).padStart(2,'0')}</span>`;el.addEventListener('click',()=>openLightbox(img.src));gallery.appendChild(el)});
+const lightbox=document.querySelector('#lightbox'),lbImg=document.querySelector('#lightboxImg');
+function openLightbox(src){lbImg.src=src;lightbox.classList.add('open');lightbox.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
+function closeLightbox(){lightbox.classList.remove('open');lightbox.setAttribute('aria-hidden','true');document.body.style.overflow='';lbImg.src=''}
+document.querySelector('#lightboxClose').onclick=closeLightbox;
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox()});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+let p=0;const bar=document.querySelector('#preBar'),cnt=document.querySelector('#preCount'),pre=document.querySelector('#preloader');const timer=setInterval(()=>{p=Math.min(100,p+Math.ceil(Math.random()*9));bar.style.width=p+'%';cnt.textContent=String(p).padStart(2,'0');if(p>=100){clearInterval(timer);setTimeout(()=>pre.classList.add('done'),250)}},55);
+</script>
+<script src="transitions.js"></script>
+</body>
+</html>

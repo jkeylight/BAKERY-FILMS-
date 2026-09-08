@@ -9,6 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="transition.css">
+<style>
+@media (min-width: 701px) {
+  .hero-video {
+    object-fit: contain;
+    object-position: center center;
+    background: #090909;
+    transform: none !important;
+  }
+}
+</style>
 </head>
 <body>
 <div class="preloader"><div class="preloader-mark" id="preloader-title">BAKERY FILMS</div><div class="preloader-bar"><i></i></div><span>LOADING EXPERIENCE</span></div>
@@ -39,54 +49,72 @@
   </div>
 
   <div class="scene scene-2">
-    <div class="video-wrap">
-      <video class="hero-video" muted playsinline loop preload="auto" poster="assets/Capture.JPG">
-        <source src="https://video.wixstatic.com/video/c02525_4449c9b7fea441f38875ed1e2b6db755/720p/mp4/file.mp4" type="video/mp4">
-      </video>
-      <div class="video-shade"></div>
-      <div class="video-play-state">● LIVE IMAGE</div>
-    </div>
+    <div class="video-wrap"><video class="hero-video" muted playsinline loop preload="auto" poster="assets/TEST-SLIDE/ASH-4.jpg"><source src="assets/TEST-SLIDE/SLIDE-3.mp4" type="video/mp4"></video><div class="video-shade"></div><div class="video-play-state">● LIVE IMAGE</div></div>
     <div class="eyebrow">03 — MOVING IMAGE / ORIGINAL FILM</div>
-    <h1 class="headline h2"><span>IN</span><em>MOTION</em></h1>
+    <h1 class="headline h3"><span>THE</span><em>DYNASTY</em></h1>
     <div class="video-caption">A LIVING FRAME<br>1920 × 1080 / 25 FPS</div>
     <a class="cta">WATCH <span>↗</span></a>
   </div>
 
   <div class="scene scene-3">
-    <div class="split"><div><img src="assets/c02525_23be238fec574d9597a2514795330bb1~mv2.avif" alt="The Dynasty diptych, left panel"></div><div><img src="assets/c02525_41b1b218814b4c648131f30cd5fe3a53~mv2.avif" alt="The Dynasty diptych, right panel"></div></div>
-    <div class="eyebrow">04 — DIPTYCH / DYNASTY</div>
-    <h1 class="headline h3"><span>THE</span><em>DYNASTY</em></h1>
-    <div class="side-note">TWO FRAMES<br>ONE NARRATIVE</div>
-    <a class="cta">DISCOVER <span>↗</span></a>
-  </div>
-
-  <div class="scene scene-4">
-    <div class="image-frame frame-e"><img src="assets/slide5-new.jpg" alt="Golden-hour portrait — The Glow"></div>
-    <div class="eyebrow">05 — PORTRAIT / THE GLOW</div>
+    <div class="image-frame frame-e"><picture><source media="(max-width: 600px)" srcset="assets/TEST-SLIDE/DIAN-3-MOB.jpg"><img src="assets/TEST-SLIDE/DIAN-3.jpg" alt="Portrait — The Glow"></picture></div>
+    <div class="eyebrow">04 — PORTRAIT / THE GLOW</div>
     <h1 class="headline h4"><em>GLOW</em></h1>
     <div class="side-note">WARM LIGHT<br>GOLDEN HOUR</div>
     <a class="cta">ENTER <span>↗</span></a>
   </div>
 
-  <div class="scene scene-5">
-    <div class="image-frame frame-g"><img src="assets/virat 2.jpg" alt="Portrait — The King, the player"></div>
-    <div class="eyebrow">06 — KING / THE PLAYER</div>
+  <div class="scene scene-4">
+    <div class="image-frame frame-g"><img src="assets/TEST-SLIDE/HHRIT--5.JPG" alt="Portrait — The King, the player"></div>
+    <div class="eyebrow">05 — KING / THE PLAYER</div>
     <h1 class="headline h6"><span>THE</span><em>KING</em></h1>
     <div class="side-note">SINGLE FRAME<br>MAXIMUM PRESENCE</div>
     <a class="cta">ENTER <span>↗</span></a>
   </div>
 
+  <div class="scene scene-5">
+    <div class="image-frame frame-a"><picture><source media="(max-width: 600px)" srcset="assets/TEST-SLIDE/sidrth-MOB-8.jpg"><img src="assets/TEST-SLIDE/sidrth-8.jpg" alt="Editorial portrait — In Focus"></picture></div>
+    <div class="eyebrow">06 — PORTRAIT / IN FOCUS</div>
+    <h1 class="headline h2"><span>IN</span><em>FOCUS</em></h1>
+    <div class="side-note">A SINGLE FRAME<br>WITH PRESENCE</div>
+    <a class="cta">ENTER <span>↗</span></a>
+  </div>
+
   <div class="scene scene-6">
-    <div class="image-frame frame-f"><img src="assets/srk.jpg" alt="Closing portrait — Not a Dream"></div>
+    <div class="image-frame frame-b"><img src="assets/TEST-SLIDE/slide5-new.jpg" alt="Golden portrait — The Light"></div>
+    <div class="eyebrow">07 — PORTRAIT / THE LIGHT</div>
+    <h1 class="headline h1"><span>THE</span><em>LIGHT</em></h1>
+    <div class="side-note">WARM LIGHT<br>QUIET ENERGY</div>
+    <a class="cta">ENTER <span>↗</span></a>
+  </div>
+
+  <div class="scene scene-7">
+    <div class="image-frame frame-e"><picture><source media="(max-width: 600px)" srcset="assets/TEST-SLIDE/ASH-4-MOB.jpg"><img src="assets/TEST-SLIDE/ASH-4.jpg" alt="Editorial portrait — New Shape"></picture></div>
+    <div class="eyebrow">08 — EDITORIAL / NEW SHAPE</div>
+    <h1 class="headline h4"><em>SHAPE</em></h1>
+    <div class="side-note">FORM AND MOTION<br>ONE LANGUAGE</div>
+    <a class="cta">DISCOVER <span>↗</span></a>
+  </div>
+
+  <div class="scene scene-8">
+    <div class="video-wrap"><video class="hero-video" muted playsinline loop preload="auto" poster="assets/TEST-SLIDE/virat-6.jpg"><source src="assets/TEST-SLIDE/SLIDE-9.mp4" type="video/mp4"></video><div class="video-shade"></div><div class="video-play-state">● LIVE IMAGE</div></div>
+    <div class="eyebrow">09 — MOVING IMAGE / ORIGINAL FILM</div>
+    <h1 class="headline h2"><span>IN</span><em>MOTION</em></h1>
+    <div class="video-caption">A LIVING FRAME<br>1920 × 1080 / 25 FPS</div>
+    <a class="cta">WATCH <span>↗</span></a>
+  </div>
+
+  <div class="scene scene-9">
+    <div class="image-frame frame-f"><picture><source media="(max-width: 600px)" srcset="assets/TEST-SLIDE/srk-MOB-7.jpg"><img src="assets/TEST-SLIDE/srk-7.jpg" alt="Closing portrait — Not a Dream"></picture></div>
     <div class="final-veil"></div>
-    <div class="eyebrow">07 — END / BEGIN AGAIN</div>
+    <div class="eyebrow">10 — END / BEGIN AGAIN</div>
     <h1 class="headline h5"><span>NOT</span><em>A<br>DREAM.</em></h1>
     <div class="side-note">A CINEMATIC<br>PORTFOLIO SYSTEM</div>
     <a class="cta" href="contact-10x.html" data-barba-prevent="self">START A COMMISSION <span>↗</span></a>
   </div>
 
   <div class="ui-bottom">
-    <div class="numbers"><b id="num">01</b><span>/</span><span>07</span></div>
+    <div class="numbers"><b id="num">01</b><span>/</span><span>10</span></div>
     <div class="timeline"><i id="bar"></i></div>
     <div class="gesture">SCROLL <span>↕</span> DRAG <span>↔</span></div>
   </div>

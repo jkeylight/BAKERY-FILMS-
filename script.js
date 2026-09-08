@@ -1,12 +1,12 @@
 const scenes=[...document.querySelectorAll('.scene')],num=document.querySelector('#num'),bar=document.querySelector('#bar');
+const videoScenes=new Set(scenes.filter(scene=>scene.querySelector('.hero-video')));
 let index=0,busy=false,open=false,startX=0;
-const video=document.querySelector('.hero-video');
 const cardW=()=>Math.min(innerWidth*.68,960),cardH=()=>cardW()*9/16;
 
 const lenis=new Lenis({duration:1.2,lerp:.075,smoothWheel:true,smoothTouch:true});
 function raf(t){lenis.raf(t);requestAnimationFrame(raf)} requestAnimationFrame(raf);
 
-function setUI(){num.textContent=String(index+1).padStart(2,'0');gsap.to(bar,{scaleX:(index+1)/7,duration:.7,ease:'power3.out'});}
+function setUI(){num.textContent=String(index+1).padStart(2,'0');gsap.to(bar,{scaleX:(index+1)/scenes.length,duration:.7,ease:'power3.out'});}
 function prep(scene,dir){
  const media=scene.querySelector('.image-frame,.video-wrap,.split');
  const text=scene.querySelectorAll('.headline,.eyebrow,.side-note,.video-caption,.cta,.video-play-state');
@@ -16,12 +16,13 @@ function prep(scene,dir){
 function enter(scene){
  const media=scene.querySelector('.image-frame,.video-wrap,.split');
  const text=scene.querySelectorAll('.headline,.eyebrow,.side-note,.video-caption,.cta,.video-play-state');
- if(scene===scenes[2]){
-  gsap.set(media,{autoAlpha:1,scale:1.02,width:cardW(),height:cardH(),borderRadius:14,borderColor:'rgba(255,255,255,.18)'});
+ if(videoScenes.has(scene)){
+  const currentVideo=scene.querySelector('.hero-video'),desktopVideo=innerWidth>700;
+    gsap.set(media,{autoAlpha:1,scale:1.02,...(desktopVideo?{x:0}:{}),width:cardW(),height:cardH(),borderRadius:14,borderColor:'rgba(255,255,255,.18)'});
   gsap.timeline()
    .to(text,{autoAlpha:1,y:0,duration:.8,stagger:.05,ease:'power4.out'},0)
-   .to(media,{scale:1,width:'100%',height:'100%',borderRadius:0,borderColor:'rgba(255,255,255,0)',duration:1.2,ease:'power4.inOut'},.05);
-  video.currentTime=0;video.play().catch(()=>{});
+     .to(media,{scale:1,...(desktopVideo?{x:0}:{}),width:'100%',height:'100%',borderRadius:0,borderColor:'rgba(255,255,255,0)',duration:1.2,ease:'power4.inOut'},.05);
+  currentVideo.currentTime=0;currentVideo.play().catch(()=>{});
   setUI();
   return;
  }
@@ -59,18 +60,18 @@ function go(dir){
  const next=(index+dir+scenes.length)%scenes.length;if(next===index)return;
  busy=true;
  const out=scenes[index],inn=scenes[next];
- if(index===2)video.pause();
+ out.querySelector('.hero-video')?.pause();
  prep(inn,dir);gsap.set(inn,{autoAlpha:1});
  const outMedia=out.querySelector('.image-frame,.video-wrap,.split');
  const outText=out.querySelectorAll('.headline,.eyebrow,.side-note,.video-caption,.cta,.video-play-state');
  const tl=gsap.timeline({onComplete:()=>{gsap.set(out,{autoAlpha:0});index=next;busy=false;enter(inn)}});
  tl.to(outText,{y:dir>0?-45:45,autoAlpha:0,duration:.55,ease:'power3.in'},0);
- if(out===scenes[2]){
+ if(videoScenes.has(out)){
   tl.to(outMedia,{scale:1,width:cardW(),height:cardH(),borderRadius:14,borderColor:'rgba(255,255,255,.14)',duration:.85,ease:'power3.inOut'},0);
  }else{
   tl.to(outMedia,{scale:1.08,x:dir>0?'-4%':'4%',duration:.7,ease:'power3.inOut'},0);
  }
- if(inn!==scenes[2]){
+ if(!videoScenes.has(inn)){
   tl.to(inn.querySelector('.image-frame,.video-wrap,.split'),{autoAlpha:1,scale:1,x:0,duration:1.05,ease:'power4.out'},.18);
  }
 }

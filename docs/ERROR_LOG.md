@@ -29,7 +29,7 @@ Zero tolerance for silent failures, suppressed warnings, or vague debugging. Eve
   This is a placeholder. Replace this file with your actual video file. (66 chars)
   ```
 - **Root Cause Analysis:** `media/My Movie 1.mp4` is a 133-byte placeholder stub, not a video. The production hero video instead streams from a remote Wix CDN URL (`https://video.wixstatic.com/video/c02525_4449c9b7fea441f38875ed1e2b6db755/720p/mp4/file.mp4`, index.html:44). Scene 03 is entirely dependent on a third-party CDN that the studio does not control.
-- **Resolution / Workaround:** Not yet resolved. Requires a real video asset. NOTE: `assets/PHOTOGRAPHER/` contains 20 real image files (~7MB total) that ARE referenced by `photographer.html` — this tree is NOT placeholder junk, contrary to initial suspicion; only the mp4 is a stub.
+- **Resolution / Workaround:** ✅ PARTIALLY RESOLVED 2026-09-08 ~13:20. User directive: hero video now sources the real local `assets/My Movie 1.mp4` (63,689,496 bytes, verified on disk) — the Wix CDN stream was removed from index.html (ERR-005 impact reduced). The 133-byte `media/My Movie 1.mp4` stub is now ORPHANED (no page references it) but still exists on disk; deletion is destructive and awaits user confirmation. NOTE: `assets/PHOTOGRAPHER/` contains 20 real image files (~7MB total) that ARE referenced by `photographer.html` — this tree is NOT placeholder junk, contrary to initial suspicion; only the mp4 is a stub.
 - **Prevention:** Add a build/audit check that fails when referenced media files are below a minimum size threshold (e.g., < 10KB for video).
 
 ---
@@ -76,7 +76,7 @@ Zero tolerance for silent failures, suppressed warnings, or vague debugging. Eve
   ls: cannot access 'package.json': No such file or directory
   ```
 - **Root Cause Analysis:** No `.git` folder, no `package.json`, no `node_modules`, no test runner, no build system. The project is unversioned and untestable by automated means. `rollback.sh` / `rollback.bat` reference `git for-each-ref` and `git reset --hard` — these scripts will fail immediately in the current state.
-- **Resolution / Workaround:** Not yet resolved. Requires `git init` + remote connection and a minimal test harness.
+- **Resolution / Workaround:** ✅ RESOLVED 2026-09-08 13:06. `git init -b main` + remote `origin → https://github.com/jkeylight/BAKERY-FILMS-.git`; initial commit `32523a2` (64 files, working tree CLEAN). Test harness also bootstrapped (see ERR-007 / seed suite). No push performed — not requested.
 - **Prevention:** This report itself. Any future session must verify VCS and test infrastructure before claiming reproducibility.
 
 ---

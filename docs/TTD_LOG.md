@@ -86,5 +86,58 @@ Strict Red → Green → Refactor methodology. Tests are defined **before** impl
   ℹ tests 5 | pass 3 | fail 2      EXIT_CODE=1
   ```
   **✅ GREEN for seed-5** — 3 PASS / 2 FAIL. Remaining failures are seed-3 (ERR-001) and seed-4 (ERR-002), both awaiting user decisions; untouched by this cycle.
+
+---
+
+## Test Cycle: Noir Reversal — seed-6 gate | 2026-09-08 13:10–13:12 IST
+- **Test File:** `tests/seed-checks.test.mjs` (new seed-6)
+- **Objective:** Lock in the user-directed reversal of the noir image treatment: portraits load in FULL COLOR at rest; `grayscale(1)` is permitted ONLY inside `:hover` rules (noir moment + slow zoom on hover, as before).
+- **Design-Lock Note:** The user explicitly ordered this visual change ("REVERSE IT FROM GRAYSCALE TO COLOR") — approved by directive; logged as the lock's exception trail.
+- **Test Cases Defined (seed-6):**
+  1. In `style.css`, `contact.css`, `about.html`: any rule containing `filter:grayscale(1)` MUST have `:hover` in its selector
+  2. At least 3 `:hover` rules must carry `grayscale(1)` (slider, photographers grid, founders)
+- **RED phase (verified CLI output before any CSS edit):**
+  ```
+  ✖ seed-6: grayscale(1) appears only inside :hover rules (noir reversed) (41.8508ms)
+    AssertionError: grayscale(1) outside :hover rules:
+    style.css: .image-frame img,.split img{...}
+    contact.css: .px-banner img{...}
+    contact.css: .ph img{...}
+    about.html: .founder-media img{...}
+  ```
+  Exactly the 4 rest-state rules — prediction matched.
+- **Implementation (after RED):** 7 line-level swaps across 3 files:
+  - `style.css`: rest rule drops filter; `.image-frame:hover img,.split:hover img` → `grayscale(1) contrast(1.08) brightness(.92)`
+  - `contact.css`: `.px-banner img` + `.ph img` rest rules drop filter; `.ph:hover img` → noir grade
+  - `about.html`: `.founder-media img` rest drops filter; `.founder:hover .founder-media img` → noir grade
+  All transition timings (0.8s/1.2s, 0.6s/1s) and zoom scales (1.05/1.045/1.04) untouched.
+- **Execution Result (verified CLI output, `npm test`):**
+  ```
+  ✔ seed-1 ✔ seed-2 ✖ seed-3 ✖ seed-4 ✔ seed-5 ✔ seed-6
+  ℹ tests 6 | pass 4 | fail 2      EXIT=1
+  ```
+  **✅ GREEN for seed-6** — 4 PASS / 2 FAIL. seed-3/seed-4 remain RED (user decisions pending), untouched.
+- **Coverage Impact:** 6 automated gates now cover asset, link, media-stub, CTA, alt-text, and noir-treatment integrity.
+- **Refactor Notes:** Verified before implementation that no JS (script.js/transitions.js/contact.js) touches image `filter` — no GSAP/Lenis conflict. The `.split img{filter:saturate(.65)}` duotone base and hero-video grade are intentionally untouched (not part of the portrait noir system).
+
+---
+
+## Test Cycle: Video Slide Reposition + Local Source — seed-7 gate | 2026-09-08 ~13:20 IST
+- **Test File:** `tests/seed-checks.test.mjs` (new seed-7)
+- **Objective:** Lock in the user directive: the IN MOTION video slide becomes slide 6 of 7 (scene index 5), and its source becomes the local `assets/My Movie 1.mp4` (real 63.7MB video — verified on disk, NOT the 133-byte `media/` stub) instead of the Wix CDN stream. Also locks the required script.js retarget from index 2 → 5.
+- **Test Cases Defined (seed-7):**
+  1. Exactly 7 scenes, classes exactly 0..6; the scene containing `.hero-video` is index 5
+  2. `<source>` = `assets/My Movie 1.mp4`; zero `wixstatic` references in index.html; `poster="assets/Capture.JPG"` preserved
+  3. script.js: no `scenes[2]`; `scenes[5]` exactly 3× (enter/exit/entrance-skip); pause guard `index===5`
+- **Test-Harness bugs found and fixed during RED (all in the test, NOT the site):** (a) scene-0's `active` class broke the `scene-N` tag regex (digit not followed by quote) — fixed by matching the digit anywhere in the class attr; (b) the block-capture regex consumed the next scene's opening tag, so the last-but-one scene (the video) never matched → `undefined` — fixed with a lookahead boundary; (c) `scenes[2]` count is 3 not 4 (the 4th spot was `index===2`). Each fix re-verified against real CLI output before proceeding.
+- **RED phase (verified CLI output before any site edit):** `video must be scene index 5 (slide 6 of 7), found 2` — the true defect state.
+- **Execution Result (verified CLI output, `npm test`):**
+  ```
+  ✔ seed-1 ✔ seed-2 ✖ seed-3 ✖ seed-4 ✔ seed-5 ✔ seed-6 ✔ seed-7
+  ℹ tests 7 | pass 5 | fail 2      EXIT=1
+  ```
+  **✅ GREEN for seed-7** — 5 PASS / 2 FAIL. Remaining RED: seed-3 (ERR-001 `media/` stub — the now-orphaned 133-byte file) and seed-4 (ERR-002 dead CTAs). Both await user decisions.
+- **Coverage Impact:** 7 automated gates. seed-7 now guards slider structure (scene count/order), hero video source, and script.js scene-index wiring.
+- **Refactor Notes:** Scene classes + eyebrow counters renumbered to match new DOM order (DYNASTY 03, GLOW 04, KING 05, MOVING IMAGE 06, END 07). Headline layout classes (`.h2`/`.h5`/`.h6`) stayed glued to their scenes — positional, not order-dependent. No CSS changes; design lock respected beyond the user-ordered reorder.
 - **Coverage Impact:** Suite progression 2→3 passing gates. seed-5 is now a permanent regression gate for all future pages/images.
 - **Refactor Notes:** (1) about.html needed zero edits — confirmed by the RED failure output before touching anything. (2) Docs defect found and repaired during this cycle: ERR-006's header in ERROR_LOG.md had been destroyed by a prior editing accident (body fused into ERR-007's Prevention line); header restored and entry marked RESOLVED. (3) Design lock fully respected: no structure, CSS, copy, or behavior changed — only `alt` attribute values.

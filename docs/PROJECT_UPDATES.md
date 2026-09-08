@@ -88,3 +88,48 @@ Macro-level evolution log for the BAKERY-FILMS- codebase. Updated at the end of 
   - [ ] seed-3 (ERR-001 video stub) and seed-4 (ERR-002 dead CTAs) remain RED — both need user decisions (real video asset / CTA destinations)
   - [ ] `git init` + remote connection (ERR-004) still pending — an earlier attempt was interrupted before any git state was created; the folder is still not a repository
 - **Notes:** This is the first defect resolved through the full TDD loop in this project. The alt text is intentionally conservative: where evidence about a subject conflicts between pages, the alt describes the editorial framing rather than asserting an identity. Note for future sessions: ERR-006's log entry was restored after corruption — if history looks odd around ERR-007/ERR-006 ordering in ERROR_LOG.md, that is the documented repair, not new damage.
+
+---
+
+## [2026-09-08] Update: Version Control Initialized (ERR-004 resolved)
+- **Status:** Completed
+- **Architectural Changes:** Repo initialized (`git init -b main`), remote connected (`origin → https://github.com/jkeylight/BAKERY-FILMS-.git`), initial commit `32523a2` created (64 files, 3,899 insertions, working tree CLEAN). One commit captures the current state (site + docs + harness + alt-text fix) — the earlier plan for a separate pristine-upstream commit was dropped because the tree had already moved on (ERR-006 fix applied). No push performed (not requested).
+- **Completed Tasks:**
+  - [x] `git init -b main` + `git remote add origin` (identity already configured: jkeylight)
+  - [x] Initial commit `32523a2` — every future site change is now diffable and reversible
+  - [x] Verified: `git log` shows commit, `git status` CLEAN
+- **Next Steps:**
+  - [ ] Push to GitHub when the user authorizes
+  - [ ] Site updates can now proceed against a versioned baseline — commit early and often; `npm test` before each commit (seed-1/2/5 are green gates)
+- **Notes:** ERR-004 closed. The repo is now the safety net for the upcoming wave of site changes: any edit can be reverted with `git checkout -- <file>` or `git reset` (rollback.sh/rollback.bat now work as intended).
+
+---
+
+## [2026-09-08] Update: Noir Reversal — Color at Rest, Grayscale on Hover
+- **Status:** Completed (first user-directed DESIGN change — approved by explicit directive)
+- **Architectural Changes:** None structural. 7 line-level CSS swaps across `style.css`, `contact.css`, `about.html`: the noir grade (`grayscale(1) contrast(1.08) brightness(.92)`) moved from rest state to `:hover` state across all three portrait surfaces (home slider frames, photographers grid + px-banner, founder portraits). Transition timings and zoom scales untouched.
+- **Completed Tasks:**
+  - [x] New seed-6 gate written FIRST (RED): grayscale(1) only inside :hover rules, ≥3 hover rules required
+  - [x] RED verified: failure listed exactly the 4 rest-state offenders
+  - [x] Swap applied; GREEN verified: `npm test` → 4 PASS / 2 FAIL (seed-3/4 still RED, pending user decisions)
+  - [x] On-disk grep proof: rest rules carry no grayscale; only the 3 :hover rules do
+- **Next Steps:**
+  - [ ] Commit checkpoint for this change (awaiting user go-ahead or next instruction)
+  - [ ] seed-3/seed-4 remain open user decisions
+- **Notes:** The site's noir identity now works in reverse: visitors see the photography in full color, and the monochrome grade becomes a deliberate interaction reward on hover. seed-6 makes this the enforced convention — any future grayscale-at-rest rule fails the suite. This was the first design-lock exception, granted by explicit user directive in-session.
+
+---
+
+## [2026-09-08] Update: Video Slide Moved to #6 + Local Source (seed-7)
+- **Status:** Completed (user-directed; second design-lock exception, logged)
+- **Architectural Changes:** `index.html` slider reordered — IN MOTION video scene moved from position 3 to position 6 (between KING and NOT A DREAM). Scene classes + eyebrow counters renumbered to match (DYNASTY 03, GLOW 04, KING 05, MOVING IMAGE 06, END 07). Hero `<source>` swapped from Wix CDN to local `assets/My Movie 1.mp4` (63.7MB real video; poster `assets/Capture.JPG` preserved). `script.js` scene-index wiring retargeted 2 → 5 (3× `scenes[5]` + `index===5` pause guard). No CSS changes.
+- **Completed Tasks:**
+  - [x] Verified the real video exists: `assets/My Movie 1.mp4` = 63,689,496 bytes (the 133-byte stub is a separate `media/` file)
+  - [x] RED: seed-7 gate written first; captured failure (`found 2`) + fixed 3 test-harness regex bugs along the way (all test-side, documented in TTD_LOG)
+  - [x] GREEN: `npm test` → **5 PASS / 2 FAIL**, seed-7 ✔; on-disk grep proof of new scene order/eyebrows/local source, zero wixstatic in index.html
+  - [x] ERR-001 marked PARTIALLY RESOLVED in ERROR_LOG.md (hero now local; orphaned `media/` stub awaits deletion decision)
+- **Next Steps:**
+  - [ ] User decision: delete the now-orphaned 133-byte `media/My Movie 1.mp4` (would flip seed-3 green)
+  - [ ] seed-4 (ERR-002 dead CTAs) still awaits user destinations
+  - [ ] Uncommitted work grows: alt-text fix, noir reversal, video move — commit checkpoint available on request
+- **Notes:** Ordering was verified safe: `script.js` reads scenes from DOM order, so the reposition needed only the index retarget. The `01/07` counter and `/7` timeline bar remain correct (scene count unchanged). ERR-005 (Wix CDN dependency) is reduced to the remaining pages (work/latest/director/photographer still hotlink Wix media).

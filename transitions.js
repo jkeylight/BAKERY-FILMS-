@@ -20,24 +20,35 @@
  const curtain=document.querySelector('.page-transition .curtain');
  if(!curtain)return;
 
+ const smoothScroll=window.Lenis?new Lenis({duration:1.1,lerp:.08,smoothWheel:true,smoothTouch:true}):null;
+ if(smoothScroll){
+  window.siteLenis=smoothScroll;
+  function raf(time){smoothScroll.raf(time);requestAnimationFrame(raf)}
+  requestAnimationFrame(raf);
+ }
+
  barba.init({
   preventRunning:true,
   transitions:[{
    name:'page-curtain',
    async leave(data){
+    smoothScroll?.stop();
     await gsap.timeline()
      .set(curtain,{transformOrigin:'bottom'})
      .to(curtain,{scaleY:1,duration:.5,ease:'power4.inOut'});
    },
    async enter(data){
-    window.scrollTo(0,0);
+    if(smoothScroll){smoothScroll.scrollTo(0,{immediate:true,force:true});}
+    else{window.scrollTo(0,0);}
     initFounderReveal();
     await gsap.timeline()
      .set(curtain,{transformOrigin:'top'})
      .to(curtain,{scaleY:0,duration:.5,ease:'power4.inOut'});
+    smoothScroll?.start();
    },
    async once(data){
-    window.scrollTo(0,0);
+    if(smoothScroll){smoothScroll.scrollTo(0,{immediate:true,force:true});smoothScroll.start();}
+    else{window.scrollTo(0,0);}
     initFounderReveal();
    }
   }]
@@ -52,7 +63,7 @@
     if(a.hash&&a.pathname===location.pathname){
      e.preventDefault();
      var target=document.querySelector(a.hash);
-     if(target&&window.lenis)lenis.scrollTo(target);
+    if(target&&window.siteLenis)window.siteLenis.scrollTo(target);
     }
    });
   });

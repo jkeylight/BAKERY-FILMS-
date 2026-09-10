@@ -29,7 +29,9 @@ Zero tolerance for silent failures, suppressed warnings, or vague debugging. Eve
   This is a placeholder. Replace this file with your actual video file. (66 chars)
   ```
 - **Root Cause Analysis:** `media/My Movie 1.mp4` is a 133-byte placeholder stub, not a video. The production hero video instead streams from a remote Wix CDN URL (`https://video.wixstatic.com/video/c02525_4449c9b7fea441f38875ed1e2b6db755/720p/mp4/file.mp4`, index.html:44). Scene 03 is entirely dependent on a third-party CDN that the studio does not control.
-- **Resolution / Workaround:** ✅ PARTIALLY RESOLVED 2026-09-08 ~13:20. User directive: hero video now sources the real local `assets/My Movie 1.mp4` (63,689,496 bytes, verified on disk) — the Wix CDN stream was removed from index.html (ERR-005 impact reduced). The 133-byte `media/My Movie 1.mp4` stub is now ORPHANED (no page references it) but still exists on disk; deletion is destructive and awaits user confirmation. NOTE: `assets/PHOTOGRAPHER/` contains 20 real image files (~7MB total) that ARE referenced by `photographer.html` — this tree is NOT placeholder junk, contrary to initial suspicion; only the mp4 is a stub.
+- **Resolution / Workaround:** ✅ RESOLVED 2026-09-10. Orphaned 133-byte `media/My Movie 1.mp4`
+  stub deleted (`git status` shows `D "media/My Movie 1.mp4"`); no shipped page
+  referenced it (seed-1 confirms zero dangling refs). `node --test` → seed-3 ✔.
 - **Prevention:** Add a build/audit check that fails when referenced media files are below a minimum size threshold (e.g., < 10KB for video).
 
 ---
@@ -42,12 +44,41 @@ Zero tolerance for silent failures, suppressed warnings, or vague debugging. Eve
   <!-- index.html:83 -->
   <a class="cta">ENTER <span>↗</span></a>
   ```
-- **Root Cause Analysis:** Six of seven `.cta` elements on the home slider have no `href` — they are non-navigable anchors. Only scene 07 (`START A COMMISSION`) links to `contact-10x.html`. Scenes 01–06 CTAs ("ENTER", "VIEW STORY", "WATCH", "DISCOVER") are dead UI.
-- **Resolution / Workaround:** Not yet resolved. Requires product decision: link each scene to its relevant inner page (`work.html`, `directors.html`, `photographer.html?photographer=norman-james`, etc.) or remove the CTAs.
+- **Root Cause Analysis:** All 9 `.cta` elements on the 10-slide home slider had no
+  `href` — non-navigable anchors. Only scene-9 (`START A COMMISSION`) linked to
+  `contact-10x.html`.
+- **Resolution / Workaround:** ✅ RESOLVED 2026-09-10. All 9 dead CTAs wired to
+  existing inner pages (attribute-only, no visual change): 7 portrait/editorial
+  slides → `photographers.html`, 2 video slides (WATCH) → `work.html`.
+  `node --test` → seed-4 ✔ (seed-2 confirms all hrefs resolve).
 - **Prevention:** Audit interactive elements for navigability; add a link-integrity test that flags `<a>` without `href`.
 
 ---
 
+
+## Error ID: ERR-007 | 2026-09-10
+- **Component:** Frontend / Latest page (latest.html)
+- **Severity:** Medium
+- **Error Message / Stack Trace:**
+  ```
+  $ node --test "tests/*.test.mjs"   # seed-8 RED
+  videos duplicated across entries + featured:
+  c02525_206e39c455f045f29c27e10958d15698 (Card Control)
+  c02525_a7d476c8b3454b5bbd5d400232540815 (MX Takatak × Badshah)
+  c02525_8a64fb5f14e841d9a4dc765dd76f1dc2 (Panasonic × PV Sindhu)
+  c02525_e71fe48ce50f4b569fa92118531de2fa (Mahindra Road Master G75)
+  ```
+- **Root Cause Analysis:** All 4 `featured` items reused an `entries` src
+  verbatim, so the "Fresh from the oven" grid replayed the log above it
+  instead of surfacing distinct work.
+- **Resolution / Workaround:** ✅ RESOLVED 2026-09-10 (TDD cycle: RED →
+  GREEN, see TTD_LOG.md). Featured list repointed at 4 catalogue films absent
+  from entries (Lakme Sunexpert / New Normal / Fanta / Bakery Films Reel);
+  srcs match work.html + director.html. `node --test` → seed-8 ✔.
+- **Prevention:** seed-8 is now a permanent regression gate — any future
+  entries/featured overlap fails `npm test` immediately.
+
+---
 
 ## Error ID: ERR-003 | 2026-09-08 10:42
 - **Component:** Frontend / Archive & debris files

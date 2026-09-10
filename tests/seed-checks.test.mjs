@@ -134,34 +134,59 @@ test('seed-6: grayscale(1) appears only inside :hover rules (noir reversed)', ()
   assert.ok(hoverRules >= 3, `expected grayscale(1) in >=3 :hover rules (slider, photographers grid, founders), found ${hoverRules}`);
 });
 
+// --- Seed Check 8 ------------------------------------------------------------
+// Latest page: no video src may appear in both the `entries` list and the
+// `featured` list (duplicate videos on the same page).
+test('seed-8: latest.html entries and featured share no video src', () => {
+  const html = read('latest.html');
+  const grab = (name) => {
+    const m = new RegExp(`const ${name}=\\[([\\s\\S]*?)\\];`).exec(html);
+    assert.ok(m, `const ${name}=[...] block must exist in latest.html`);
+    return [...m[1].matchAll(/src:"([^"]+)"/g)].map((x) => x[1]);
+  };
+  const entrySrcs = grab('entries');
+  const featuredSrcs = grab('featured');
+  assert.ok(entrySrcs.length >= 1, 'entries must define at least one src');
+  assert.ok(featuredSrcs.length >= 1, 'featured must define at least one src');
+  const dupes = featuredSrcs.filter((s) => entrySrcs.includes(s));
+  assert.deepEqual(dupes, [], `videos duplicated across entries + featured:\n${dupes.join('\n')}`);
+});
+
 // --- Seed Check 7 ------------------------------------------------------------
-// User directive (2026-09-08): the IN MOTION video slide moves to position 6
-// (index 5 of 7), and its source becomes the local assets/My Movie 1.mp4
-// (real 63.7MB video) instead of the Wix CDN stream. script.js must track the
-// video scene at index 5 (scenes[5] ×4, index===5 pause guard), never [2].
-test('seed-7: video slide is #6 of 7, sourced locally (assets/My Movie 1.mp4), script.js at index 5', () => {
+// Homepage slider: 10 scenes (0..9) with 2 local video slides (scene-2 +
+// scene-8, TEST-SLIDE mp4s). Supersedes the 2026-09-08 7-scene spec, which
+// predates the ten-slide expansion (698561f). script.js drives videos
+// generically (videoScenes Set) — no hard-coded scenes[N] indices.
+test('seed-7: 10-scene slider, local video slides at scene-2 + scene-8', () => {
   const html = read('index.html');
   const js = read('script.js');
 
-  // 1. Exactly one video-wrap scene, and it is the 6th .scene (index 5 of 7).
+  // 1. Exactly 10 scenes, classes exactly 0..9.
   // NOTE: scene-0 carries an extra "active" class, so the digit is matched
   // anywhere inside the class attribute, not just before the closing quote.
-  const sceneTags = [...html.matchAll(/<div class="scene[^"]*\bscene-(\d)[^"]*"/g)].map((m) => Number(m[1]));
-  assert.equal(sceneTags.length, 7, `expected 7 scenes, found ${sceneTags.length}`);
-  assert.deepEqual([...sceneTags].sort(), [0, 1, 2, 3, 4, 5, 6], 'scene classes must be exactly 0..6');
-  const videoScene = [...html.matchAll(/<div class="scene[^"]*\bscene-(\d)[^"]*">([\s\S]*?)<\/div>\s*(?=<div class="scene)/g)].map((m) => ({ n: Number(m[1]), hasVideo: /class="hero-video"/.test(m[2]) }));
-  const idx = videoScene.find((s) => s.hasVideo)?.n;
-  assert.equal(idx, 5, `video must be scene index 5 (slide 6 of 7), found ${idx}`);
+  const sceneTags = [...html.matchAll(/<div class="scene[^"]*\bscene-(\d+)[^"]*"/g)].map((m) => Number(m[1]));
+  assert.equal(sceneTags.length, 10, `expected 10 scenes, found ${sceneTags.length}`);
+  assert.deepEqual([...sceneTags].sort((a, b) => a - b), [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'scene classes must be exactly 0..9');
 
-  // 2. Local source, no Wix CDN in index.html.
-  assert.match(html, /<source src="assets\/My Movie 1\.mp4" type="video\/mp4">/, 'hero <source> must point at assets/My Movie 1.mp4');
+  // 2. Scenes 2 and 8 carry the hero videos; no other scene does.
+  const blocks = [...html.matchAll(/<div class="scene[^"]*\bscene-(\d+)[^"]*">([\s\S]*?)(?=<div class="scene|<div class="ui-bottom)/g)];
+  assert.equal(blocks.length, 10, `expected 10 scene blocks, found ${blocks.length}`);
+  const videoScenes = blocks.filter((m) => /class="hero-video"/.test(m[2])).map((m) => Number(m[1]));
+  assert.deepEqual(videoScenes, [2, 8], `video scenes must be [2, 8], found [${videoScenes}]`);
+
+  // 3. Local video sources, posters preserved, no Wix CDN in index.html.
+  assert.match(html, /<source src="assets\/TEST-SLIDE\/SLIDE-3\.mp4" type="video\/mp4">/, 'scene-2 source must be assets/TEST-SLIDE/SLIDE-3.mp4');
+  assert.match(html, /<source src="assets\/TEST-SLIDE\/SLIDE-9\.mp4" type="video\/mp4">/, 'scene-8 source must be assets/TEST-SLIDE/SLIDE-9.mp4');
+  assert.match(html, /poster="assets\/TEST-SLIDE\/ASH-4\.jpg"/, 'scene-2 poster must remain assets/TEST-SLIDE/ASH-4.jpg');
+  assert.match(html, /poster="assets\/TEST-SLIDE\/virat-6\.jpg"/, 'scene-8 poster must remain assets/TEST-SLIDE/virat-6.jpg');
   assert.ok(!/wixstatic/.test(html), 'index.html must not reference wixstatic');
 
-  // 3. Poster preserved.
-  assert.match(html, /poster="assets\/Capture\.JPG"/, 'hero poster must remain assets/Capture.JPG');
+  // 4. script.js handles video scenes generically (no hard-coded video indices).
+  // NOTE: scenes[0] in the intro timeline is the generic first-scene init,
+  // not a video index — only video-scene indices are banned.
+  assert.ok(!/scenes\[[2-9]\]/.test(js), 'script.js must not hard-code video scenes[N] indices');
+  assert.match(js, /videoScenes/, 'script.js must drive videos via the videoScenes set');
 
-  // 4. script.js hard-coded indices retargeted 2 → 5.
-  assert.ok(!/scenes\[2\]/.test(js), 'script.js must not reference scenes[2]');
-  assert.equal(js.match(/scenes\[5\]/g)?.length ?? 0, 3, 'script.js must reference scenes[5] exactly 3 times (enter, exit, entrance-skip)');
-  assert.match(js, /index===5/, 'script.js pause guard must be index===5');
+  // 5. Counter + timeline match the 10-slide count.
+  assert.match(html, /<span>10<\/span>/, 'slide counter total must be 10');
 });

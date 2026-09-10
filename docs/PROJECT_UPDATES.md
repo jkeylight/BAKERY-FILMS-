@@ -120,6 +120,25 @@ Macro-level evolution log for the BAKERY-FILMS- codebase. Updated at the end of 
 
 ---
 
+## [2026-09-10] Update: All Suite Errors Fixed — 8/8 GREEN
+- **Status:** Completed (`node --test "tests/*.test.mjs"` → **8 PASS / 0 FAIL**)
+- **Architectural Changes:** None structural. Attribute-only CTA wiring in
+  `index.html` (9 `href`s added, zero visual change); orphaned `media/My Movie 1.mp4`
+  stub deleted; seed-7 rewritten to the real 10-scene slider spec.
+- **Completed Tasks:**
+  - [x] seed-3 (ERR-001): deleted orphaned 133-byte `media/My Movie 1.mp4` — no page referenced it → GREEN
+  - [x] seed-4 (ERR-002): wired 9 dead CTAs — 7 portrait/editorial → `photographers.html`, 2 video WATCH → `work.html` → GREEN
+  - [x] seed-7: rewrote stale 7-scene assertion to 10-scene spec (scenes 0..9, videos at 2+8, local TEST-SLIDE mp4s, generic `videoScenes` driver, `/10` counter) → GREEN
+  - [x] seed-8 (ERR-007 latest dupes): still GREEN, untouched
+  - [x] ERR-001/ERR-002 marked RESOLVED in ERROR_LOG.md
+- **Next Steps:**
+  - [ ] Commit checkpoint (uncommitted: `index.html`, `latest.html`, `tests/seed-checks.test.mjs`, docs, `D media/My Movie 1.mp4`)
+- **Notes:** DESIGN LOCK respected — no layout/CSS/copy/behavior changed. `script.js`
+  required zero edits (already generic via `videoScenes` Set); only the test's
+  stale hard-coded-index expectation was corrected.
+
+---
+
 ## [2026-09-08] Update: Video Slide Moved to #6 + Local Source (seed-7)
 - **Status:** Completed (user-directed; second design-lock exception, logged)
 - **Architectural Changes:** `index.html` slider reordered — IN MOTION video scene moved from position 3 to position 6 (between KING and NOT A DREAM). Scene classes + eyebrow counters renumbered to match (DYNASTY 03, GLOW 04, KING 05, MOVING IMAGE 06, END 07). Hero `<source>` swapped from Wix CDN to local `assets/My Movie 1.mp4` (63.7MB real video; poster `assets/Capture.JPG` preserved). `script.js` scene-index wiring retargeted 2 → 5 (3× `scenes[5]` + `index===5` pause guard). No CSS changes.

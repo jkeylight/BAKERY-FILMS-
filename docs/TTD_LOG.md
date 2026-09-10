@@ -122,6 +122,59 @@ Strict Red → Green → Refactor methodology. Tests are defined **before** impl
 
 ---
 
+## Test Cycle: Fix-All — seed-3/4/7 GREEN | 2026-09-10
+- **Test File:** `tests/seed-checks.test.mjs` (seed-7 rewritten)
+- **Objective:** Clear the 3 remaining RED gates: seed-3 (133-byte `media/` stub),
+  seed-4 (href-less CTAs), seed-7 (stale 7-scene spec vs real 10-slide slider).
+- **Test Cases Defined:**
+  1. seed-3: orphaned `media/My Movie 1.mp4` deleted → no <10KB media remains
+  2. seed-4: all 9 dead CTAs wired (portraits → photographers.html, WATCH → work.html)
+  3. seed-7: 10 scenes 0..9, videos at [2,8], local TEST-SLIDE mp4s + posters,
+     no wixstatic, generic `videoScenes` driver, `/10` counter
+- **RED phase (verified CLI output before fixes):** `pass 5 / fail 3`
+  (seed-3 stub, seed-4 ×9 dead CTAs, seed-7 `expected 7 scenes, found 10`).
+- **Execution Result (verified CLI output, `node --test "tests/*.test.mjs"`):**
+  ```
+  ✔ seed-1 ✔ seed-2 ✔ seed-3 ✔ seed-4 ✔ seed-5 ✔ seed-6 ✔ seed-8 ✔ seed-7
+  ℹ tests 8 | pass 8 | fail 0
+  ```
+  **✅ ALL GREEN — 8/8.** First fully-green suite in repo history.
+- **Coverage Impact:** 8 automated gates, all passing. Suite now guards assets,
+  links, media-stub, CTA, alt-text, noir-hover, slider-structure, latest-uniqueness.
+- **Refactor Notes:** `script.js` needed ZERO edits — its `videoScenes` Set already
+  handles any scene count; the stale `scenes[5]×3` expectation was the only
+  casualty of the 10-slide expansion (test-side fix only). CTA wiring is
+  attribute-only (design lock intact). ERR-001/ERR-002 marked RESOLVED.
+
+---
+
+## Test Cycle: Latest Duplicate Videos — seed-8 gate | 2026-09-10
+- **Test File:** `tests/seed-checks.test.mjs` (new seed-8)
+- **Objective:** Eliminate duplicate videos on `latest.html`: all 4 `featured`
+  items reused an `entries` src verbatim (Card Control, MX Takatak, Panasonic,
+  Mahindra), so Featured Work showed zero unique films.
+- **Test Cases Defined (seed-8):**
+  1. `const entries=[...]` and `const featured=[...]` blocks exist in latest.html
+  2. Zero `src:` values shared between the two lists
+- **RED phase (verified CLI output before site edit):** `videos duplicated
+  across entries + featured` listing the 4 shared wixstatic URLs.
+- **Execution Result (verified CLI output, `node --test "tests/*.test.mjs"`):**
+  ```
+  ✔ seed-1 ✔ seed-2 ✖ seed-3 ✖ seed-4 ✔ seed-5 ✔ seed-6 ✔ seed-8 ✖ seed-7
+  ℹ tests 8 | pass 5 | fail 3      EXIT=1
+  ```
+  **✅ GREEN for seed-8** — 5 PASS / 3 FAIL. Remaining RED are pre-existing:
+  seed-3 (ERR-001 `media/` stub), seed-4 (ERR-002 dead CTAs), seed-7
+  (10-slide index.html vs 7-scene assertion — predates this fix).
+- **Coverage Impact:** 8 automated gates. seed-8 guards latest.html
+  entries-vs-featured video uniqueness.
+- **Refactor Notes:** Featured list repointed at 4 real catalogue films absent
+  from entries (Lakme Sunexpert / New Normal / Fanta / Bakery Films Reel —
+  srcs cross-checked against work.html + director.html). Entries untouched;
+  no CSS/structure/behavior change.
+
+---
+
 ## Test Cycle: Video Slide Reposition + Local Source — seed-7 gate | 2026-09-08 ~13:20 IST
 - **Test File:** `tests/seed-checks.test.mjs` (new seed-7)
 - **Objective:** Lock in the user directive: the IN MOTION video slide becomes slide 6 of 7 (scene index 5), and its source becomes the local `assets/My Movie 1.mp4` (real 63.7MB video — verified on disk, NOT the 133-byte `media/` stub) instead of the Wix CDN stream. Also locks the required script.js retarget from index 2 → 5.

@@ -86,13 +86,13 @@ h1 em{display:block;margin-left:clamp(30px,13vw,210px);font:400 clamp(54px,10vw,
 <script src="https://unpkg.com/@barba/core"></script>
 <script>
 const photographers=[
- {name:"Mukul Raut",first:"Mukul",last:"Raut",role:"Photographer",slug:"mukul-raut"},
+ {name:"Mukul Raut",first:"Mukul",last:"Raut",role:"Photographer",slug:"mukul-raut",image:"assets/PHOTOGRAPHER/mukul-raut/1.jpg"},
  {name:"Norman James",first:"Norman",last:"James",role:"Photographer",slug:"norman-james"},
  {name:"Kunal Kampani",first:"Kunal",last:"Kampani",role:"Photographer",slug:"kunal-kampani"},
  {name:"Rudra Sen",first:"Rudra",last:"Sen",role:"Photographer",slug:"rudra-sen"}
 ];
 const list=document.querySelector("#photographerList");
-photographers.forEach((d,i)=>{const a=document.createElement("a");a.className="director";a.href=`photographer.html?photographer=${encodeURIComponent(d.slug)}`;a.innerHTML=`<span class="num">${String(i+1).padStart(2,"0")}</span><span class="name">${d.first} <em>${d.last}</em></span><span class="role">${d.role}<br>Portfolio / Still</span><span class="arrow">↗</span>`;list.appendChild(a)});
+photographers.forEach((d,i)=>{const a=document.createElement("a");a.className="director";a.href=`photographer.html?photographer=${encodeURIComponent(d.slug)}`;a.innerHTML=`<span class="num">${String(i+1).padStart(2,"0")}</span><span class="img">${d.image?`<img src="${d.image}" alt="${d.name} — portrait">`:""}</span><span class="name">${d.first} <em>${d.last}</em></span><span class="role">${d.role}<br>Portfolio / Still</span><span class="arrow">↗</span>`;list.appendChild(a)});
 let p=0;const bar=document.querySelector("#preBar"),cnt=document.querySelector("#preCount"),pre=document.querySelector("#preloader");const timer=setInterval(()=>{p=Math.min(100,p+Math.ceil(Math.random()*9));bar.style.width=p+"%";cnt.textContent=String(p).padStart(2,"0");if(p>=100){clearInterval(timer);setTimeout(()=>pre.classList.add("done"),250)}},55);
 </script>
 <script src="transitions.js"></script>

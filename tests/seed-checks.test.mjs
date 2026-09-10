@@ -152,6 +152,30 @@ test('seed-8: latest.html entries and featured share no video src', () => {
   assert.deepEqual(dupes, [], `videos duplicated across entries + featured:\n${dupes.join('\n')}`);
 });
 
+// --- Seed Check 9 ------------------------------------------------------------
+// Launch checklist: every shipped page must carry SEO/social basics (title,
+// meta description, favicon), and launch files (robots.txt, sitemap.xml,
+// 404.html, privacy.html, terms.html) must exist.
+test('seed-9: launch checklist — SEO basics + legal/discovery files', () => {
+  const missingMeta = [];
+  for (const page of PAGES) {
+    const html = read(page);
+    if (!/<title>[^<]{10,}<\/title>/.test(html)) missingMeta.push(`${page}: title missing/too short`);
+    if (!/<meta name="description" content="[^"]{20,}">/.test(html)) missingMeta.push(`${page}: meta description missing/too short`);
+    if (!/rel="icon"/.test(html)) missingMeta.push(`${page}: favicon link missing`);
+  }
+  assert.deepEqual(missingMeta, [], `SEO basics missing:\n${missingMeta.join('\n')}`);
+  const missingFiles = ['robots.txt', 'sitemap.xml', '404.html', 'privacy.html', 'terms.html', 'favicon.svg']
+    .filter((f) => !existsSync(join(ROOT, f)));
+  assert.deepEqual(missingFiles, [], `launch files missing:\n${missingFiles.join('\n')}`);
+  const robots = readFileSync(join(ROOT, 'robots.txt'), 'utf8');
+  assert.match(robots, /Sitemap:/, 'robots.txt must reference the sitemap');
+  const sitemap = readFileSync(join(ROOT, 'sitemap.xml'), 'utf8');
+  for (const page of PAGES) {
+    assert.ok(sitemap.includes(page), `sitemap.xml must list ${page}`);
+  }
+});
+
 // --- Seed Check 7 ------------------------------------------------------------
 // Homepage slider: 10 scenes (0..9) with 2 local video slides (scene-2 +
 // scene-8, TEST-SLIDE mp4s). Supersedes the 2026-09-08 7-scene spec, which

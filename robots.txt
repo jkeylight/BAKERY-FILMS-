@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bakery-films.vercel.app/sitemap.xml

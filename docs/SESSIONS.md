@@ -168,4 +168,21 @@ Updated docs/TTD_LOG.md + ERROR_LOG.md (filed ERR-007 → resolved).
 - docs/TTD_LOG.md (9-cycle TDD log), PROJECT_UPDATES.md, ERROR_LOG.md
 - vercel.json (headers + redirects), sitemap.xml, robots.txt, favicon.svg, privacy.html, terms.html, 404.html
 - .gitignore (.vercel/, .env.local, node_modules/)
+
+---
+
+## Session 010 — 2026-09-11 — Photographers Rollback + Fresh Vercel Deploy
+
+**Trigger:** "Photographers page roll back update → update git" then "delete the vercel deploy and upload it again."
+
+**Actions:**
+- Rolled back uncommitted changes: restored `photographers.html` (staged edit discarded via `git restore --source=HEAD --staged --worktree`) and 32 deleted assets under `assets/PHOTOGRAPHER/`
+- Working tree clean at HEAD `030315d`; `git push` → everything up-to-date
+- Suite 9/9 GREEN
+- Deleted all 20 old Vercel deployments via `vercel remove` loop (jkeylights-projects scope)
+- Fresh production deploy: `vercel --prod --force` → `bakery-films-4ibho8bww`, aliased to bakery-films.vercel.app (Ready 12s)
+- Verified: all 9 pages 200; index/photographers/about exact matches vs local; counter 01/10; photographer + TEAM images 200
+
+**Follow-up:** User reported "old incomplete site" — all server checks passed; user confirmed site works in Incognito → client-side browser cache. Fix: Ctrl+Shift+R / Empty Cache and Hard Reload / clear site data.
+
 - package.json (type:module, test script only)

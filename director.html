@@ -30,8 +30,8 @@ main{position:relative}.hero{min-height:100svh;padding:130px var(--pad) 36px;dis
 <body>
 <div class="preloader" id="preloader"><div class="pre-wrap"><div class="pre-top"><span>Bakery Films / Director</span><span>Loading filmography</span></div><div class="pre-line"><div class="pre-bar" id="preBar"></div></div><div class="pre-count" id="preCount">00</div></div></div>
 <div class="noise"></div><div class="cursor" id="cursor"></div>
-<div data-barba="wrapper">
-<main data-barba="container" data-namespace="director">
+<div>
+<main data-namespace="director">
 <header class="site-head"><a class="logo" href="index.html">Bakery Films</a><div class="chapter" id="chapter">DIRECTOR — MUMBAI</div><button class="menu" onclick="history.back()">BACK ↗</button></header>
 <section class="hero">
   <div class="hero-kicker"><span id="kickerNum">Director 01</span><span>Bakery Films / Mumbai</span><span id="kickerType">Commercial + Narrative</span></div>
@@ -54,7 +54,6 @@ main{position:relative}.hero{min-height:100svh;padding:130px var(--pad) 36px;dis
 <link rel="stylesheet" href="transition.css">
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.8/dist/lenis.min.js"></script>
-<script src="https://unpkg.com/@barba/core"></script>
 <script>
 const directors=[
  {name:"Shekar Kambli",first:"Shekar",last:"Kambli",role:"Director",slug:"shekar-kambli",num:"01",type:"Commercial + Narrative",manifesto:"Human instinct, graphic precision and a refusal to let the product interrupt the story.",quote:"The image should seduce you before the brand ever needs to explain itself.",sectionTitle:"Stories, not <em>thumbnails.</em>",works:[{title:"Lakme Sunexpert",client:"Beauty",year:"2025",src:"https://video.wixstatic.com/video/c02525_ef59fb84e9f44139a6072d7c456cac7b/720p/mp4/file.mp4",poster:"https://static.wixstatic.com/media/c02525_ef59fb84e9f44139a6072d7c456cac7bf000.jpg"},{title:"New Normal",client:"Brand Film",year:"2025",src:"https://video.wixstatic.com/video/c02525_1dd8eabdddd84d85b5176076609f0dcd/720p/mp4/file.mp4",poster:"https://static.wixstatic.com/media/c02525_1dd8eabdddd84d85b5176076609f0dcdf000.jpg"},{title:"Fanta",client:"Beverage",year:"2025",src:"https://video.wixstatic.com/video/c02525_2b5c4ce8afdc45eebe213037533eeb25/720p/mp4/file.mp4",poster:"https://static.wixstatic.com/media/c02525_2b5c4ce8afdc45eebe213037533eeb25f000.jpg"},{title:"Toyota Etios Cross",client:"Automotive",year:"2024",src:"https://video.wixstatic.com/video/c02525_0cd4d674912741a4b043721432b8a93b/720p/mp4/file.mp4",poster:"https://static.wixstatic.com/media/c02525_0cd4d674912741a4b043721432b8a93bf000.jpg"}]},

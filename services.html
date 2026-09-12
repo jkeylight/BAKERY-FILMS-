@@ -114,8 +114,8 @@ capabilities{padding:clamp(80px,10vw,160px) var(--pad);border-bottom:1px solid v
  <button class="menu" onclick="history.back()">BACK ↗</button>
 </header>
 
-<div data-barba="wrapper">
-<main data-barba="container">
+<div>
+<main>
 <section class="hero">
  <div class="kicker"><span><strong>06 — Services</strong></span><span>Bakery Films / India</span><span>Film · Production · Post</span></div>
  <h1>THE <em>services.</em></h1>
@@ -237,7 +237,6 @@ capabilities{padding:clamp(80px,10vw,160px) var(--pad);border-bottom:1px solid v
 <link rel="stylesheet" href="transition.css">
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.8/dist/lenis.min.js"></script>
-<script src="https://unpkg.com/@barba/core"></script>
 <script>
 let p=0;const bar=document.querySelector('#preBar'),cnt=document.querySelector('#preCount'),pre=document.querySelector('#preloader');
 const timer=setInterval(()=>{p=Math.min(100,p+Math.ceil(Math.random()*9));bar.style.width=p+'%';cnt.textContent=String(p).padStart(2,'0');if(p>=100){clearInterval(timer);setTimeout(()=>pre.classList.add('done'),250)}},55);

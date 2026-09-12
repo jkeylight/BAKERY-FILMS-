@@ -1,5 +1,9 @@
 (function(){
- if(!window.barba||!window.gsap)return;
+ // NOTE: Barba.js page-transition hijacking is intentionally DISABLED.
+ // It swapped <main> without re-running each page's <script>,
+ // which is why videos/text only appeared after a manual reload.
+ // This file now only provides smooth-scroll + reveal helpers.
+ // (window.barba is ignored on purpose — normal <a> navigation = full reload = videos always init.)
 
  function initFounderReveal(){
   var media=document.querySelectorAll('.founder-media');
@@ -18,7 +22,6 @@
  }
 
  const curtain=document.querySelector('.page-transition .curtain');
- if(!curtain)return;
 
  const smoothScroll=window.Lenis?new Lenis({duration:1.1,lerp:.08,smoothWheel:true,smoothTouch:true}):null;
  if(smoothScroll){
@@ -27,36 +30,11 @@
   requestAnimationFrame(raf);
  }
 
- barba.init({
-  preventRunning:true,
-  transitions:[{
-   name:'page-curtain',
-   async leave(data){
-    smoothScroll?.stop();
-    await gsap.timeline()
-     .set(curtain,{transformOrigin:'bottom'})
-     .to(curtain,{scaleY:1,duration:.5,ease:'power4.inOut'});
-   },
-   async enter(data){
-    if(smoothScroll){smoothScroll.scrollTo(0,{immediate:true,force:true});}
-    else{window.scrollTo(0,0);}
-    initFounderReveal();
-    await gsap.timeline()
-     .set(curtain,{transformOrigin:'top'})
-     .to(curtain,{scaleY:0,duration:.5,ease:'power4.inOut'});
-    smoothScroll?.start();
-   },
-   async once(data){
-    if(smoothScroll){smoothScroll.scrollTo(0,{immediate:true,force:true});smoothScroll.start();}
-    else{window.scrollTo(0,0);}
-    initFounderReveal();
-   }
-  }]
- });
+ // Plain curtain wipe for in-page transitions only (no Barba container swap).
+ initFounderReveal();
 
  if(window.Lenis){
   document.querySelectorAll('a[href]').forEach(function(a){
-   if(a.hostname!==location.hostname)return;
    if(a.hasAttribute('data-barba-prevent'))return;
    if(a.closest('[data-barba-prevent]'))return;
    a.addEventListener('click',function(e){

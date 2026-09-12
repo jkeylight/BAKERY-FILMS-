@@ -121,5 +121,5 @@ function closeMenu(){
 }
 document.querySelector('.menu-open').onclick=openMenu;document.querySelector('.menu-close').onclick=closeMenu;
 
-// Barba transitions handled by transitions.js
+// Page-transition curtain helpers (no Barba — normal navigation = full reload so videos/text always init).
 })();

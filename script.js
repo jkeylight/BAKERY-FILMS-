@@ -1,10 +1,23 @@
+(function(){
+'use strict';
+var preloader=document.querySelector('.preloader');
+function killPreloader() {
+  if (preloader) { preloader.style.display='none'; }
+  var first=document.querySelector('.scene-0')||document.querySelector('.scene');
+  if(first){document.querySelectorAll('.scene').forEach(function(s){s.classList.remove('active')});first.classList.add('active');}
+}
+if(!window.gsap||!window.Lenis){killPreloader();return;}
+var lenis=null;
+try{lenis=new Lenis({duration:1.2,lerp:.075,smoothWheel:true,smoothTouch:true});}catch(e){killPreloader();return;}
+// safety: never trap user behind preloader
+setTimeout(function(){if(preloader&&getComputedStyle(preloader).display!=='none'&&!window.__bfStarted){killPreloader();}},4000);
 const scenes=[...document.querySelectorAll('.scene')],num=document.querySelector('#num'),bar=document.querySelector('#bar');
 const videoScenes=new Set(scenes.filter(scene=>scene.querySelector('.hero-video')));
 let index=0,busy=false,open=false,startX=0;
 const cardW=()=>Math.min(innerWidth*.68,960),cardH=()=>cardW()*9/16;
 
-const lenis=new Lenis({duration:1.2,lerp:.075,smoothWheel:true,smoothTouch:true});
 function raf(t){lenis.raf(t);requestAnimationFrame(raf)} requestAnimationFrame(raf);
+window.__bfStarted=false;
 
 function setUI(){num.textContent=String(index+1).padStart(2,'0');gsap.to(bar,{scaleX:(index+1)/scenes.length,duration:.7,ease:'power3.out'});}
 function prep(scene,dir){
@@ -53,7 +66,7 @@ intro.to('.preloader-bar i',{width:'100%',duration:1.25,ease:'power2.inOut'})
  .to('.preloader span',{opacity:0,duration:.3},1.25)
  .to('.preloader-mark',{opacity:0,scale:1.05,duration:.3,ease:'power2.in'},1.55)
  .to('.preloader',{yPercent:-100,duration:1,ease:'power4.inOut'})
- .add(()=>{prep(scenes[0],1);enter(scenes[0])},'-=.45');
+ .add(()=>{window.__bfStarted=true;prep(scenes[0],1);enter(scenes[0])},'-=.45');
 
 function go(dir){
  if(busy||open)return;
@@ -109,3 +122,4 @@ function closeMenu(){
 document.querySelector('.menu-open').onclick=openMenu;document.querySelector('.menu-close').onclick=closeMenu;
 
 // Barba transitions handled by transitions.js
+})();
